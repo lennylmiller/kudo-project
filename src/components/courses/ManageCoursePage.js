@@ -72,7 +72,7 @@ export function ManageCoursePage({
         setErrors({ onSave: error.message });
       });
   }
-
+  console.log("Manage-courses'", authors, courses)
   return authors.length === 0 || courses.length === 0 ? (
     <Spinner />
   ) : (

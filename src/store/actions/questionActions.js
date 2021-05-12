@@ -3,7 +3,6 @@ import * as questionApi from "../../api/questionApi";
 import { beginApiCall, apiCallError } from "./apiStatusActions";
 
 export function loadQuestionSuccess(questions) {
-  debugger
   return { type: types.LOAD_QUESTIONS_SUCCESS, questions };
 }
 
@@ -25,7 +24,6 @@ export function loadQuestions() {
     return questionApi
       .getQuestions()
       .then(questions => {
-        // debugger
         const values = JSON.parse(JSON.stringify(questions.payload));
         dispatch(loadQuestionSuccess(values));
       })
