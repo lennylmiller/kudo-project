@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { Card } from '@material-ui/core';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -68,6 +69,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+
 let answerEvent;
 
 const QuestionAnswer = ({
@@ -80,7 +82,12 @@ const QuestionAnswer = ({
 
   const [selectedOption, setSelectedOption] = React.useState(null);
   const [expanded, setExpanded] = React.useState(false);
-
+  const currentUser = {
+    id: 'rashmi'
+  }
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
   const classes = useStyles();
 
   const gotoQuestions = () => {
@@ -98,40 +105,30 @@ const QuestionAnswer = ({
     <Card className={ classes.root }>
       <CardMedia
         className={ classes.media }
-        image={ imageMaps[question.id] }
-        title="Contemplative Reptile"
+        image={ imageMaps['questionNew'] }
       />
       <Avatar
         className={ classes.avatar }
         classes={ { root : classes.avatarRoot } }
-        src={ getAvatarURL(question.author) }
+        src={ getAvatarURL(currentUser.id) }
       />
-      <CardContent className={ classes.cardContent }>
-        <Typography className={ classes.title } gutterBottom variant="h4" component="h2">
+      <CardContent className={classes.cardContent}>
+        <Typography className={classes.title} variant="h4" component="h2">
           Would you rather?
         </Typography>
         <div className={ classes.options }>
-          <FormControl className={ classes.formControl } fullWidth={ true } component="fieldset">
-            <RadioGroup className={ classes.radioGroup } aria-label="answer" name="answer" value={ selectedOption }
-                        onChange={ handleChange }>
-              <FormControlLabel
-                classes={ { label : classes.optionLabel } }
-                value="optionOne"
-                label={ question?.optionOne?.text }
-                control={ <Radio/> }
-              />
-              <Typography classes={ { h6 : classes.orPart } } variant="h6" align="center">OR</Typography>
-              <FormControlLabel
-                classes={ { label : classes.optionLabel } }
-                value="optionTwo"
-                label={ question?.optionTwo?.text }
-                control={ <Radio/> }
-              />
-            </RadioGroup>
-          </FormControl>
+          <Typography variant="h5" color="textSecondary" component="p">
+            option one
+          </Typography>
+          <Typography className={classes.orText} variant="h5" color="textSecondary" component="p">
+            OR
+          </Typography>
+          <Typography variant="h5" color="textSecondary" component="p">
+            option two
+          </Typography>
         </div>
       </CardContent>
-      <CardActions className={ classes.cardActions }>
+      <CardActions className={classes.cardActions}>
         <Button
           size="small"
           color="primary"
@@ -143,17 +140,11 @@ const QuestionAnswer = ({
           <ArrowBackIcon/>
         </Button>
         <Button
-          size="small"
+          size="medium"
           color="primary"
-          onClick={ () => {
-            onAnswer({
-              preventDefault : () => '',
-              target : {
-                name : 'answer',
-                value : selectedOption,
-              }
-            });
-          } }
+          onClick={() => {
+            alert("TODO-Add Save")
+          }}
         >
           Submit
         </Button>

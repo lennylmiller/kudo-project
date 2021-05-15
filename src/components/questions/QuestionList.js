@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { history } from '../../helpers/history';
+import { history } from '../../helpers';
+import { getAvatarURL } from '../../helpers/utils';
 import Avatar from '@material-ui/core/Avatar';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -10,6 +13,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { shortDateTime } from '../../helpers/timeFormats';
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -21,18 +25,19 @@ const useStyles = makeStyles((theme) => {
       height : theme.spacing(9),
       width : theme.spacing(9)
     },
-    table: {
-
+    table : {},
+    fab : {
+      position : 'absolute',
+      bottom : theme.spacing(2),
+      right : theme.spacing(2)
     }
+
   };
 });
 
 const QuestionList = ({ questions }) => {
   const classes = useStyles();
 
-  const getAvatarURL = (author) => {
-    return `https://kudo-assignment.s3-us-west-2.amazonaws.com/${ author }.jpg`;
-  };
 
   return (
     <div className={ classes.root }>
@@ -63,12 +68,21 @@ const QuestionList = ({ questions }) => {
                 <TableCell>{ question.optionOne.text }</TableCell>
                 <TableCell></TableCell>
                 <TableCell>{ question.optionTwo.text }</TableCell>
-                <TableCell>{ question.timestamp }</TableCell>
+                <TableCell>{ shortDateTime(question.timestamp) }</TableCell>
               </TableRow>
             )) }
           </TableBody>
         </Table>
       </TableContainer>
+      <Fab
+        className={ classes.fab }
+        color="primary"
+        onClick={ () => {
+          history.push('/questions/add');
+          window.location.reload();
+        }}>
+        <AddIcon/>
+      </Fab>
     </div>
   );
 };

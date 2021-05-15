@@ -116,7 +116,7 @@ const Header = () => {
       </AppBar>
       <Drawer
         className={ classes.drawer }
-        variant="persistent"
+        variant="temporary"
         anchor="left"
         open={ open }
         classes={ {
@@ -130,14 +130,6 @@ const Header = () => {
         </div>
         <Divider/>
         <List>
-          <NavLink to="/" key="/">
-            <ListItem button key="Home">
-              <ListItemIcon>
-                <LibraryBooksIcon/>
-              </ListItemIcon>
-              <ListItemText primary="Home"/>
-            </ListItem>
-          </NavLink>
           <NavLink to="/questions" key="/questions">
             <ListItem button key="Questions">
               <ListItemIcon>
@@ -146,20 +138,12 @@ const Header = () => {
               <ListItemText primary="Questions"/>
             </ListItem>
           </NavLink>
-          <NavLink to="/courses" key="/courses">
-            <ListItem button key="Courses">
+          <NavLink to="/leaderboard" key="/leaderboard">
+            <ListItem button key="Leaderboard">
               <ListItemIcon>
                 <EqualizerIcon/>
               </ListItemIcon>
-              <ListItemText primary="Courses"/>
-            </ListItem>
-          </NavLink>
-          <NavLink to="/about" key="/about">
-            <ListItem button key="/about">
-              <ListItemIcon>
-                <InfoIcon/>
-              </ListItemIcon>
-              <ListItemText primary="About"/>
+              <ListItemText primary="Leaderboard"/>
             </ListItem>
           </NavLink>
         </List>
