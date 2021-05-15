@@ -1,4 +1,5 @@
 import { format } from 'd3-format';
+import { v4 as uuidv4 } from 'uuid';
 
 export const getAvatarURL = (author) => {
   return `https://kudo-assignment.s3-us-west-2.amazonaws.com/${ author }.jpg`;
@@ -23,8 +24,8 @@ export const imageMaps = {
   'what-do-you-think' : 'https://kudo-assignment.s3-us-west-2.amazonaws.com/what-do-you-think.jpeg',
 };
 
-export const setRandomImageURL = (questionId) => {
-  imageMaps[questionId] = [
+const randomImage = () => {
+ return [
     'apple-or-orange',
     'his-or-hers',
     'myway-yourway',
@@ -33,8 +34,20 @@ export const setRandomImageURL = (questionId) => {
     'up-or-down',
     'what-do-you-think'
   ][Math.floor((Math.random() * 7) + 1)]
-};
+}
 
+export const getQuestionId = () => {
+  const questionId = uuidv4()
+  let image = randomImage();
+
+  while (image === null || image === undefined) {
+    image = randomImage();
+  }
+
+  imageMaps[questionId] = `https://kudo-assignment.s3-us-west-2.amazonaws.com/${image}.jpeg`
+
+  return questionId
+};
 
 export const clearCurrentUserVote = (votes, currentUser) => {
   const clonedArray = votes.slice();

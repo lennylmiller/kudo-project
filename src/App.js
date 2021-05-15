@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import HomePage from './components/home/HomePage';
 import AboutPage from './components/about/AboutPage';
@@ -26,19 +26,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
-  const [drawerOpen, setDrawerOpen] = React.useState(false);
   const classes = useStyles();
-
-  const handleCloseDrawer = () => {
-    setDrawerOpen(false)
-  }
 
   return (
     <div className={ classes.root }>
       <MuiThemeProvider theme={ muiTheme }>
         <CssBaseline/>
         <Container>
-          <Header handleClose={handleCloseDrawer} />
+          <Header />
           <Switch>
             <Route exact path="/" component={ HomePage }/>
             <Route path="/about" component={ AboutPage }/>
@@ -48,7 +43,8 @@ function App() {
             <Route exact path="/questions" component={ QuestionsPage }/>
             <Route path="/questions/:id" component={ ManageQuestionPage }/>
             <Route exact path="/leaderboard" component={ LeaderboardPage }/>
-            <Route component={ PageNotFound }/>
+            <Route exact path="/404" component={ PageNotFound }/>
+            <Redirect to="/404" />
           </Switch>
           <ToastContainer autoClose={ 3000 } hideProgressBar/>
         </Container>

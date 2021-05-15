@@ -9,11 +9,10 @@ import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { v4 as uuidv4 } from 'uuid';
 import { imageMaps } from '../../helpers/utils';
 import { history } from '../../helpers/';
 import { toast } from 'react-toastify';
-import { newQuestion, setRandomImageURL, getAvatarURL } from '../../helpers/utils';
+import { newQuestion, getQuestionId, getAvatarURL } from '../../helpers/utils';
 import { saveQuestion } from '../../store/actions/questionActions';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -85,6 +84,7 @@ function QuestionNew({ saveQuestion }) {
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
   const [question, setQuestion] = useState(newQuestion);
+  const [questionId, setQuestionId] = useState(getQuestionId())
 
   const formIsValid = () => {
     // for a new question, text is required for each
@@ -119,11 +119,9 @@ function QuestionNew({ saveQuestion }) {
   const handleSave = (event) => {
     const { name, value } = event.target;
     event.preventDefault();
-    const newId = uuidv4();
-    setRandomImageURL(newId);
     const changes = {
       ...question,
-      id : uuidv4(),
+      id : questionId,
       timestamp : (new Date()).getTime(),
       author : currentUser.id
     };
@@ -142,13 +140,14 @@ function QuestionNew({ saveQuestion }) {
       });
   };
 
-  console.log('here', question);
+  console.log('here', question, imageMaps[questionId]);
+
   return saving
     ? (<Spinner/>)
     : (<Card className={ classes.root }>
         <CardMedia
           className={ classes.media }
-          image={ imageMaps['poll'] }
+          image={ imageMaps[questionId] }
         />
         <Avatar
           className={ classes.avatar }
