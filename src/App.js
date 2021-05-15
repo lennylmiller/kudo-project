@@ -26,14 +26,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
   const classes = useStyles();
+
+  const handleCloseDrawer = () => {
+    setDrawerOpen(false)
+  }
 
   return (
     <div className={ classes.root }>
       <MuiThemeProvider theme={ muiTheme }>
         <CssBaseline/>
         <Container>
-          <Header/>
+          <Header handleClose={handleCloseDrawer} />
           <Switch>
             <Route exact path="/" component={ HomePage }/>
             <Route path="/about" component={ AboutPage }/>

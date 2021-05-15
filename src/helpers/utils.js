@@ -14,7 +14,26 @@ export const imageMaps = {
   'newUserOne' : 'https://kudo-assignment.s3-us-west-2.amazonaws.com/survey-clipart.jpg',
   'questionNew' : 'https://kudo-assignment.s3-us-west-2.amazonaws.com/index.jpg',
   'poll' : 'https://kudo-assignment.s3-us-west-2.amazonaws.com/poll.jpeg',
-}
+  'apple-or-orange' : 'https://kudo-assignment.s3-us-west-2.amazonaws.com/apple-or-orange.jpeg',
+  'his-or-hers' : 'https://kudo-assignment.s3-us-west-2.amazonaws.com/his-or-hers.jpeg',
+  'myway-yourway' : 'https://kudo-assignment.s3-us-west-2.amazonaws.com/myway-yourway.jpeg',
+  'teeter-or-totter' : 'https://kudo-assignment.s3-us-west-2.amazonaws.com/teeter-or-totter.jpeg',
+  'tundra-or-tropic' : 'https://kudo-assignment.s3-us-west-2.amazonaws.com/tundra-or-tropic.jpeg',
+  'up-or-down' : 'https://kudo-assignment.s3-us-west-2.amazonaws.com/up-or-down.jpeg',
+  'what-do-you-think' : 'https://kudo-assignment.s3-us-west-2.amazonaws.com/what-do-you-think.jpeg',
+};
+
+export const setRandomImageURL = (questionId) => {
+  imageMaps[questionId] = [
+    'apple-or-orange',
+    'his-or-hers',
+    'myway-yourway',
+    'teeter-or-totter',
+    'tundra-or-tropic',
+    'up-or-down',
+    'what-do-you-think'
+  ][Math.floor((Math.random() * 7) + 1)]
+};
 
 
 export const clearCurrentUserVote = (votes, currentUser) => {
@@ -63,10 +82,10 @@ export const newQuestion = {
 
 };
 
-export const signedCurrency        = format('+$,.2f') // +$1,000.00 -$1,000.00
+export const signedCurrency = format('+$,.2f'); // +$1,000.00 -$1,000.00
 
-export const signedShortCurrency   = format('+$,.0f') // +$1,000.00 -$1,000.00
-export const currency              = format('$,.2f')  // $1,000.00
+export const signedShortCurrency = format('+$,.0f'); // +$1,000.00 -$1,000.00
+export const currency = format('$,.2f');  // $1,000.00
 
 export const getAnswerCount = (user) => {
   return Object.keys(user.answers).length;

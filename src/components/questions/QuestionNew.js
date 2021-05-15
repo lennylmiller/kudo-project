@@ -11,10 +11,13 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { v4 as uuidv4 } from 'uuid';
 import { imageMaps } from '../../helpers/utils';
-import { getAvatarURL, history } from '../../helpers';
+import { history } from '../../helpers/';
 import { toast } from 'react-toastify';
-import { newQuestion } from '../../helpers/utils';
+import { newQuestion, setRandomImageURL, getAvatarURL } from '../../helpers/utils';
 import { saveQuestion } from '../../store/actions/questionActions';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import Spinner from '../common/Spinner';
 
 const useStyles = makeStyles((theme) => ({
   root : {
@@ -74,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function QuestionNew() {
+function QuestionNew({ saveQuestion }) {
   const classes = useStyles();
   const currentUser = {
     id : 'rashmi'
@@ -101,9 +104,9 @@ function QuestionNew() {
     const { name, value } = event.target;
     const changedQuestion = {
       ...question
-    }
+    };
 
-    changedQuestion[name].text = value
+    changedQuestion[name].text = value;
 
     setQuestion(prevQuestion => {
       return ({
@@ -116,12 +119,13 @@ function QuestionNew() {
   const handleSave = (event) => {
     const { name, value } = event.target;
     event.preventDefault();
-
+    const newId = uuidv4();
+    setRandomImageURL(newId);
     const changes = {
       ...question,
-      id: uuidv4(),
-      timestamp: (new Date()).getTime(),
-      author: currentUser.id
+      id : uuidv4(),
+      timestamp : (new Date()).getTime(),
+      author : currentUser.id
     };
 
     if (!formIsValid()) return;
@@ -130,6 +134,7 @@ function QuestionNew() {
       .then(() => {
         toast.success('Question saved.');
         history.push('/questions');
+        window.location.reload()
       })
       .catch(error => {
         setSaving(false);
@@ -138,70 +143,80 @@ function QuestionNew() {
   };
 
   console.log('here', question);
-  return (
-    <Card className={ classes.root }>
-      <CardMedia
-        className={ classes.media }
-        image={ imageMaps['poll'] }
-      />
-      <Avatar
-        className={ classes.avatar }
-        classes={ { root : classes.avatarRoot } }
-        src={ getAvatarURL(currentUser.id) }
-      />
-      <CardContent className={ classes.cardContent }>
-        <Typography className={ classes.title } variant="h4" component="h2">
-          Would you rather?
-        </Typography>
-        <div className={ classes.options }>
-          <TextField
-            // error
-            id="optionOne"
-            label="Option One"
-            fullWidth
-            onBlur={ handleChange }
-            name="optionOne"
-            // defaultValue="Hello World"
-            // helperText="Incorrect entry."
-          />
-          <Typography className={ classes.orText } variant="h5" color="textSecondary" component="p">
-            OR
+  return saving
+    ? (<Spinner/>)
+    : (<Card className={ classes.root }>
+        <CardMedia
+          className={ classes.media }
+          image={ imageMaps['poll'] }
+        />
+        <Avatar
+          className={ classes.avatar }
+          classes={ { root : classes.avatarRoot } }
+          src={ getAvatarURL(currentUser.id) }
+        />
+        <CardContent className={ classes.cardContent }>
+          <Typography className={ classes.title } variant="h4" component="h2">
+            Would you rather?
           </Typography>
-          <TextField
-            // error
-            id="optionTwo"
-            label="Option Two"
-            fullWidth
-            onBlur={ handleChange }
-            name="optionTwo"
-            // defaultValue="Hello World"
-            // helperText="Incorrect entry."
-          />
-        </div>
-      </CardContent>
-      <CardActions className={ classes.cardActions }>
-        <Button
-          size="small"
-          color="primary"
-          onClick={ () => {
-            history.push('/questions');
-            window.location.reload();
-          } }
-        >
-          <ArrowBackIcon/>
-        </Button>
-        <Button
-          size="medium"
-          color="primary"
-          onClick={ (e) => {
-            handleSave(e);
-          } }
-        >
-          Submit
-        </Button>
-      </CardActions>
-    </Card>
-  );
+          <div className={ classes.options }>
+            <TextField
+              // error
+              id="optionOne"
+              label="Option One"
+              fullWidth
+              onBlur={ handleChange }
+              name="optionOne"
+              // defaultValue="Hello World"
+              // helperText="Incorrect entry."
+            />
+            <Typography className={ classes.orText } variant="h5" color="textSecondary" component="p">
+              OR
+            </Typography>
+            <TextField
+              // error
+              id="optionTwo"
+              label="Option Two"
+              fullWidth
+              onBlur={ handleChange }
+              name="optionTwo"
+              // defaultValue="Hello World"
+              // helperText="Incorrect entry."
+            />
+          </div>
+        </CardContent>
+        <CardActions className={ classes.cardActions }>
+          <Button
+            size="small"
+            color="primary"
+            onClick={ () => {
+              history.push('/questions');
+              window.location.reload();
+            } }
+          >
+            <ArrowBackIcon/>
+          </Button>
+          <Button
+            size="medium"
+            color="primary"
+            onClick={ (e) => {
+              handleSave(e);
+            } }
+          >
+            Submit
+          </Button>
+        </CardActions>
+      </Card>
+    );
 }
 
-export default QuestionNew;
+QuestionNew.propTypes = {
+  saveQuestion : PropTypes.func.isRequired
+};
+
+const mapDispatchToProps = {
+  saveQuestion
+};
+
+export default connect(null, mapDispatchToProps)(QuestionNew);
+

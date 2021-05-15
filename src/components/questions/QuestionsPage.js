@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as questionActions from '../../store/actions/questionActions';
-import withStyles from '@material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import QuestionList from './QuestionList';
+import withStyles from '@material-ui/core/styles/withStyles';
 import { Typography } from '@material-ui/core';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+
+import * as questionActions from '../../store/actions/questionActions';
+import QuestionList from './QuestionList';
 
 const styles = theme => ({
   root : {

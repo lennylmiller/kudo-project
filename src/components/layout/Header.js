@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,8 +9,6 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -18,7 +16,6 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
-import InfoIcon from '@material-ui/icons/Info';
 import { NavLink } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -82,19 +79,14 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
   const classes = useStyles();
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
+  const toggleDrawer = () => {
+    open ? setOpen(false) : setOpen(true);
   };
 
   return (
-    <div className={ classes.root }>
+    <div className={ classes.root } onClick={toggleDrawer}>
       <CssBaseline/>
       <AppBar
         position="fixed"
@@ -106,7 +98,7 @@ const Header = () => {
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={ handleDrawerOpen }
+            onClick={ toggleDrawer }
             edge="start"
             className={ clsx(classes.menuButton, open && classes.hide) }
           >
@@ -118,16 +110,12 @@ const Header = () => {
         className={ classes.drawer }
         variant="temporary"
         anchor="left"
+
         open={ open }
         classes={ {
           paper : classes.drawerPaper,
         } }
       >
-        <div className={ classes.drawerHeader }>
-          <IconButton onClick={ handleDrawerClose }>
-            { theme.direction === 'ltr' ? <ChevronLeftIcon/> : <ChevronRightIcon/> }
-          </IconButton>
-        </div>
         <Divider/>
         <List>
           <NavLink to="/questions" key="/questions">

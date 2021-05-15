@@ -5,19 +5,12 @@ import PropTypes from 'prop-types';
 import Spinner from '../common/Spinner';
 import { toast } from 'react-toastify';
 import QuestionNew from './QuestionNew';
-import { Redirect } from "react-router-dom";
+import { Redirect } from 'react-router-dom';
 import QuestionAnswer from './QuestionAnswer';
 import QuestionStatistics from './QuestionStatistics';
-import { setMode, removeMode } from '../../store/actions/questionActions';
-import {
-  getVotesWithoutCurrentUser,
-  newQuestion,
-  signedCurrency,
-  signedShortCurrency,
-  currency
-} from '../../helpers/utils';
+import { setMode } from '../../store/actions/questionActions';
+import { getVotesWithoutCurrentUser, newQuestion, currency } from '../../helpers/utils';
 
-console.log('OUT_MANAGE')
 const ManageQuestionPage = ({
                               questions,
                               loadQuestions,
@@ -28,12 +21,10 @@ const ManageQuestionPage = ({
   const [question, setQuestion] = useState({ ...props.question });
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
-  console.log('IN_MANAGE')
-  console.log({ props })
 
   if (props.question === null) {
-      history.push('/questions')
-      window.location.reload();
+    history.push('/questions');
+    window.location.reload();
   }
 
   const currentUser = {
@@ -51,7 +42,6 @@ const ManageQuestionPage = ({
       setQuestion({ ...props.question });
     }
   }, [props.question]);
-
 
   const handleChange = (event) => {
     let changes = {};
@@ -84,7 +74,7 @@ const ManageQuestionPage = ({
     // Form is valid if the errors object still has no properties
     return Object.keys(errors).length === 0;
   };
-// TODO remove event... refactor more straight forward if this works
+
   const handleAnswer = (event) => {
     const { name, value } = event.target;
     event.preventDefault();
@@ -101,6 +91,7 @@ const ManageQuestionPage = ({
       .then(() => {
         toast.success('Question saved.');
         history.push('/questions');
+        window.location.reload()
       })
       .catch(error => {
         setSaving(false);
@@ -116,6 +107,7 @@ const ManageQuestionPage = ({
       .then(() => {
         toast.success('Question saved.');
         history.push('/questions');
+        window.location.reload()
       })
       .catch(error => {
         setSaving(false);
@@ -168,7 +160,7 @@ const ManageQuestionPage = ({
   };
 
   {
-     question === null && (
+    question === null && (
       <Redirect to="/questions"/>
     );
   }
