@@ -15,6 +15,7 @@ import { saveQuestion } from '../../store/actions/questionActions';
 import PropTypes from 'prop-types';
 import Spinner from '../common/Spinner';
 import ThemedContent from './ThemedContent';
+import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles((theme) => ({
   root : {
@@ -85,7 +86,7 @@ function QuestionNew({ saveQuestion }) {
   const [saving, setSaving] = useState(false);
   const [question, setQuestion] = useState(newQuestion);
   const [questionId, setQuestionId] = useState(getQuestionId());
-
+debugger
   const formIsValid = () => {
     // for a new question, text is required for each
     const { optionOne, optionTwo } = question;
@@ -140,61 +141,61 @@ function QuestionNew({ saveQuestion }) {
       });
   };
 
-  console.log('here', question, imageMaps[questionId]);
-
   return saving
     ? (<Spinner/>)
-    : (<Card className={ classes.root }>
-        <ThemedContent
-          imageMaps={ imageMaps }
-          questionId={ questionId }
-          getAvatarURL={ getAvatarURL }>
-          <div className={ classes.options }>
-            <TextField
-              id="optionOne"
-              label="Option One"
-              fullWidth
-              onBlur={ handleChange }
-              name="optionOne"
-            />
-            <Typography
-              className={ classes.orText }
-              variant="h5"
-              color="textSecondary"
-              component="p">
-              OR
-            </Typography>
-            <TextField
-              id="optionTwo"
-              label="Option Two"
-              fullWidth
-              onBlur={ handleChange }
-              name="optionTwo"
-            />
-          </div>
-        </ThemedContent>
-        <CardActions className={ classes.cardActions }>
-          <Button
-            size="small"
-            color="primary"
-            onClick={ () => {
-              history.push('/questions');
-              window.location.reload();
-            } }
-          >
-            <ArrowBackIcon/>
-          </Button>
-          <Button
-            size="medium"
-            color="primary"
-            onClick={ (e) => {
-              handleSave(e);
-            } }
-          >
-            Submit
-          </Button>
-        </CardActions>
-      </Card>
+  : (<Container maxWidth="md">
+        <Card className={ classes.root }>
+          <ThemedContent
+            imageMaps={ imageMaps }
+            questionId={ questionId }
+            getAvatarURL={ getAvatarURL }>
+            <div className={ classes.options }>
+              <TextField
+                id="optionOne"
+                label="Option One"
+                fullWidth
+                onBlur={ handleChange }
+                name="optionOne"
+              />
+              <Typography
+                className={ classes.orText }
+                variant="h5"
+                color="textSecondary"
+                component="p">
+                OR
+              </Typography>
+              <TextField
+                id="optionTwo"
+                label="Option Two"
+                fullWidth
+                onBlur={ handleChange }
+                name="optionTwo"
+              />
+            </div>
+          </ThemedContent>
+          <CardActions className={ classes.cardActions }>
+            <Button
+              size="small"
+              color="primary"
+              onClick={ () => {
+                history.push('/questions');
+                window.location.reload();
+              } }
+            >
+              <ArrowBackIcon/>
+            </Button>
+            <Button
+              size="medium"
+              color="primary"
+              onClick={ (e) => {
+                handleSave(e);
+              } }
+            >
+              Submit
+            </Button>
+          </CardActions>
+        </Card>
+      </Container>
     );
 }
 

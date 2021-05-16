@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Redirect, BrowserRouter } from 'react-router-dom';
+import { Route, Switch, Redirect, BrowserRouter as Router } from 'react-router-dom';
 import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import HomePage from './components/home/HomePage';
 import Header from './components/Header';
@@ -31,7 +31,7 @@ function App() {
 
   return (
     <div className={ classes.root }>
-      <BrowserRouter history={ history }>
+      <Router>
         <MuiThemeProvider theme={ muiTheme }>
           <CssBaseline/>
           <Container>
@@ -40,10 +40,9 @@ function App() {
               <ProtectedPath exact path={['/', '/home']} component={ HomePage }/>
               <Route exact path="/login" component={ LoginPage }/>
               <Route path="/register" component={ RegisterPage }/>
-              <ProtectedPath path="/profile" component={ ProfilePage }/>
-              <ProtectedPath path="/questions" component={ QuestionsPage }/>
+              <ProtectedPath exact path="/questions/add" component={ QuestionNew }/>
               <ProtectedPath path="/questions/:id" component={ ManageQuestionPage }/>
-              <ProtectedPath path="/questions/add" component={ QuestionNew }/>
+              <ProtectedPath exact path="/questions" component={ QuestionsPage }/>
               <ProtectedPath path="/leaderboard" component={ LeaderboardPage }/>
               <Route path="/404" component={ PageNotFound }/>
               <Redirect to="/404"/>
@@ -51,7 +50,7 @@ function App() {
             <ToastContainer autoClose={ 3000 } hideProgressBar/>
           </Container>
         </MuiThemeProvider>
-      </BrowserRouter>
+      </Router>
     </div>
   );
 }

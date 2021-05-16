@@ -14,6 +14,7 @@ import Radio from '@material-ui/core/Radio';
 import { getAvatarURL, imageMaps } from '../../helpers/utils';
 import Spinner from '../common/Spinner';
 import ThemedContent from './ThemedContent';
+import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles((theme) => ({
   root : {
@@ -23,8 +24,7 @@ const useStyles = makeStyles((theme) => ({
     display : 'flex',
     justifyContent : 'space-between'
   },
-  formControl : {
-  },
+  formControl : {},
   radioGroup : {
     display : 'flex',
     flexDirection : 'row',
@@ -55,61 +55,63 @@ const QuestionAnswer = ({
 
   return (saving)
     ? (<Spinner/>)
-    : (<Card className={ classes.root }>
-      <ThemedContent
-        imageMaps={ imageMaps }
-        questionId={ question.id }
-        getAvatarURL={ getAvatarURL }>
-        <div className={ classes.options }>
-          <FormControl className={ classes.formControl } fullWidth={ true } component="fieldset">
-            <RadioGroup className={ classes.radioGroup } aria-label="answer" name="answer" value={ selectedOption }
-                        onChange={ handleChange }>
-              <FormControlLabel
-                classes={ { label : classes.optionLabel } }
-                value="optionOne"
-                label={ question?.optionOne?.text }
-                control={ <Radio/> }
-              />
-              <Typography classes={ { h6 : classes.orPart } } variant="h6" align="center">OR</Typography>
-              <FormControlLabel
-                classes={ { label : classes.optionLabel } }
-                value="optionTwo"
-                label={ question?.optionTwo?.text }
-                control={ <Radio/> }
-              />
-            </RadioGroup>
-          </FormControl>
-        </div>
+    : (<Container maxWidth="md">
+      <Card className={ classes.root }>
+        <ThemedContent
+          imageMaps={ imageMaps }
+          questionId={ question.id }
+          getAvatarURL={ getAvatarURL }>
+          <div className={ classes.options }>
+            <FormControl className={ classes.formControl } fullWidth={ true } component="fieldset">
+              <RadioGroup className={ classes.radioGroup } aria-label="answer" name="answer" value={ selectedOption }
+                          onChange={ handleChange }>
+                <FormControlLabel
+                  classes={ { label : classes.optionLabel } }
+                  value="optionOne"
+                  label={ question?.optionOne?.text }
+                  control={ <Radio/> }
+                />
+                <Typography classes={ { h6 : classes.orPart } } variant="h6" align="center">OR</Typography>
+                <FormControlLabel
+                  classes={ { label : classes.optionLabel } }
+                  value="optionTwo"
+                  label={ question?.optionTwo?.text }
+                  control={ <Radio/> }
+                />
+              </RadioGroup>
+            </FormControl>
+          </div>
 
-      </ThemedContent>
-      <CardActions className={ classes.cardActions }>
-        <Button
-          size="small"
-          color="primary"
-          onClick={ () => {
-            history.push('/questions');
-            window.location.reload();
-          } }
-        >
-          <ArrowBackIcon/>
-        </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={ () => {
-            onAnswer({
-              preventDefault : () => '',
-              target : {
-                name : 'answer',
-                value : selectedOption,
-              }
-            });
-          } }
-        >
-          Submit
-        </Button>
-      </CardActions>
-    </Card>);
+        </ThemedContent>
+        <CardActions className={ classes.cardActions }>
+          <Button
+            size="small"
+            color="primary"
+            onClick={ () => {
+              history.push('/questions');
+              window.location.reload();
+            } }
+          >
+            <ArrowBackIcon/>
+          </Button>
+          <Button
+            size="small"
+            color="primary"
+            onClick={ () => {
+              onAnswer({
+                preventDefault : () => '',
+                target : {
+                  name : 'answer',
+                  value : selectedOption,
+                }
+              });
+            } }
+          >
+            Submit
+          </Button>
+        </CardActions>
+      </Card>
+    </Container>);
 };
 
 QuestionAnswer.propTypes = {

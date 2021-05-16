@@ -29,8 +29,6 @@ const useStyles = makeStyles((theme) => {
 const LeaderboardList = ({ users }) => {
   const classes = useStyles();
 
-  console.log(users);
-
   return (
     <div className={ classes.root }>
       <TableContainer component={ Paper } square>

@@ -9,7 +9,7 @@ import { Redirect } from 'react-router-dom';
 import QuestionAnswer from './QuestionAnswer';
 import QuestionStatistics from './QuestionStatistics';
 import { setMode } from '../../store/actions/questionActions';
-import { getVotesWithoutCurrentUser, newQuestion, currency } from '../../helpers/utils';
+import { getVotesWithoutCurrentUser, newQuestion, twoDecimal } from '../../helpers/utils';
 
 const ManageQuestionPage = ({
                               questions,
@@ -24,7 +24,7 @@ const ManageQuestionPage = ({
   const { user : currentUser, isloggedin } = useSelector((state) => state.auth);
 
   if (props.question === null) {
-    history.push('/questions');
+    history.push('/login');
     window.location.reload();
   }
 
@@ -153,8 +153,8 @@ const ManageQuestionPage = ({
     }
 
     return {
-      optionOne : `${ oneCount } voted which is ${ currency(onePercent) }%`,
-      optionTwo : `${ twoCount } voted which is ${ currency(twoPercent) }%`
+      optionOne : `${ oneCount } voted which is ${ twoDecimal(onePercent) }%`,
+      optionTwo : `${ twoCount } voted which is ${ twoDecimal(twoPercent) }%`
     };
   };
 

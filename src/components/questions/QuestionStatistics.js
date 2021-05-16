@@ -13,6 +13,7 @@ import { imageMaps } from '../../helpers/utils';
 import ThemedContent from './ThemedContent';
 import CheckIcon from '@material-ui/icons/Check';
 import { useSelector } from 'react-redux';
+import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles((theme) => ({
   root : {
@@ -59,69 +60,61 @@ const QuestionStatistics = ({
   const classes = useStyles();
   const statistics = getStatistics();
   const { user : currentUser, isloggedin } = useSelector((state) => state.auth);
-
-  console.log(getAvatarURL(currentUser.id));
-  const whichOption = (userId) => {
-    if (question.optionOne.votes.includes(userId)) {
-      return 'optionOne';
-    }
-
-    return 'optionTwo';
-    // const second = question.optionTwo.votes.includes(userId)
-
-  };
   const ifOption = (option) => {
     return !question[`option${ option }`].votes.includes(currentUser.id);
   };
-  return (
-    <Card className={ classes.root }>
-      <ThemedContent imageMaps={ imageMaps } questionId={ question.id } getAvatarURL={ getAvatarURL }>
-        <div className={ classes.whichOnePicked }>
-          <CheckIcon className={ clsx(classes.optionSelected, {
-            [classes.invisible] : ifOption('One'),
-            [classes.isLeft] : true
-          }) }/>
-          <CheckIcon className={ clsx(classes.optionSelected, {
-            [classes.invisible] : ifOption('Two'),
-            [classes.isRight] : true
-          }) }/>
-        </div>
-        <div className={ classes.options }>
-          <Typography variant="h5" color="textSecondary" component="p">
-            { question?.optionOne?.text }
-          </Typography>
-          <Typography className={ classes.orText } variant="h5" color="textSecondary" component="p">
-            OR
-          </Typography>
-          <Typography variant="h5" color="textSecondary" component="p">
-            { question?.optionTwo?.text }
-          </Typography>
-        </div>
-        <div className={ classes.options }>
-          <Typography variant="body2" color="textSecondary" component="p">
-            { statistics.optionOne }
-          </Typography>
-          <Typography variant="h5" color="textSecondary" component="p">
 
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            { statistics.optionTwo }
-          </Typography>
-        </div>
-      </ThemedContent>
-      <CardActions className={ classes.cardActions }>
-        <Button
-          size="small"
-          color="primary"
-          onClick={ () => {
-            history.push('/questions');
-            window.location.reload();
-          } }
-        >
-          <ArrowBackIcon/>
-        </Button>
-      </CardActions>
-    </Card>
+  return (
+    <Container maxWidth="md">
+      <Card className={ classes.root }>
+        <ThemedContent imageMaps={ imageMaps } questionId={ question.id } getAvatarURL={ getAvatarURL }>
+          <div className={ classes.whichOnePicked }>
+            <CheckIcon className={ clsx(classes.optionSelected, {
+              [classes.invisible] : ifOption('One'),
+              [classes.isLeft] : true
+            }) }/>
+            <CheckIcon className={ clsx(classes.optionSelected, {
+              [classes.invisible] : ifOption('Two'),
+              [classes.isRight] : true
+            }) }/>
+          </div>
+          <div className={ classes.options }>
+            <Typography variant="h5" color="textSecondary" component="p">
+              { question?.optionOne?.text }
+            </Typography>
+            <Typography className={ classes.orText } variant="h5" color="textSecondary" component="p">
+              OR
+            </Typography>
+            <Typography variant="h5" color="textSecondary" component="p">
+              { question?.optionTwo?.text }
+            </Typography>
+          </div>
+          <div className={ classes.options }>
+            <Typography variant="body2" color="textSecondary" component="p">
+              { statistics.optionOne }
+            </Typography>
+            <Typography variant="h5" color="textSecondary" component="p">
+
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              { statistics.optionTwo }
+            </Typography>
+          </div>
+        </ThemedContent>
+        <CardActions className={ classes.cardActions }>
+          <Button
+            size="small"
+            color="primary"
+            onClick={ () => {
+              history.push('/questions');
+              window.location.reload();
+            } }
+          >
+            <ArrowBackIcon/>
+          </Button>
+        </CardActions>
+      </Card>
+    </Container>
   );
 };
 

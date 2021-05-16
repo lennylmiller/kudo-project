@@ -99,6 +99,7 @@ export const signedCurrency = format('+$,.2f'); // +$1,000.00 -$1,000.00
 
 export const signedShortCurrency = format('+$,.0f'); // +$1,000.00 -$1,000.00
 export const currency = format('$,.2f');  // $1,000.00
+export const twoDecimal = format(',.2f');  // 1,000.00
 
 export const getAnswerCount = (user) => {
   return Object.keys(user.answers).length;

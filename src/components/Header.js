@@ -100,6 +100,9 @@ const Header = () => {
       .then(() => {
         history.push('/');
         window.location.reload();
+        setTimeout(() => {
+          window.location.reload();
+        },200)
       })
       .catch(() => {
         console.error('Error logging out');

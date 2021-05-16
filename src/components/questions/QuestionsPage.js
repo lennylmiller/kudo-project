@@ -20,6 +20,7 @@ const styles = theme => ({
   }
 });
 
+
 @withStyles(styles, { withTheme : true })
 class QuestionsPage extends React.Component {
   constructor(props) {
@@ -45,6 +46,7 @@ class QuestionsPage extends React.Component {
         .catch(error => {
           alert('Loading questions failed' + error);
         });
+
     }
   }
 
@@ -57,11 +59,11 @@ class QuestionsPage extends React.Component {
   };
 
   render() {
+    const { currentUser } = this.props
     const answered = this.props.questions.filter(question => {
-      const answeredOne = question.optionOne.votes.includes('rashmi');
-      const answeredTwo = question.optionTwo.votes.includes('rashmi');
+      const answeredOne = question.optionOne.votes.includes(currentUser.id);
+      const answeredTwo = question.optionTwo.votes.includes(currentUser.id);
 
-      // question.isAnswered = answeredOne || answeredTwo;
       return answeredOne || answeredTwo;
     });
 
@@ -73,7 +75,6 @@ class QuestionsPage extends React.Component {
     //    isLoading: false
     //  })
     // }
-    console.log('ASDFASDFASDFASDFASDF', this.props.questions);
 
     // return this.state.isLoading
     //   ? (<Spinner/>)
@@ -109,7 +110,9 @@ QuestionsPage.propTypes = {
 function mapStateToProps(state) {
   return {
     questions : state.questions,
-    loading : state.apiCallsInProgress > 0
+    loading : state.apiCallsInProgress > 0,
+    currentUser : state.auth.user
+
   };
 }
 

@@ -29,7 +29,7 @@ class LeaderboardPage extends React.Component {
   render() {
     const users = this.props.users;
     const { classes } = this.props;
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>', users)
+
     return (
       <div className={ classes.root }>
         <Typography align="center" variant="h5">Leader Board</Typography>

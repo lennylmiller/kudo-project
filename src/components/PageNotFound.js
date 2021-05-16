@@ -1,5 +1,20 @@
-import React from "react";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 
-const PageNotFound = () => <h1>Oops! Page not found.</h1>;
+
+const useStyles = makeStyles((theme) => ({
+  root : {
+    marginTop: theme.spacing(6)
+  },
+}));
+
+const PageNotFound = () => {
+  const classes = useStyles();
+
+  return (<div className={ classes.root }>
+      <h1>Oops! Page not found.</h1>
+    </div>
+  );
+};
 
 export default PageNotFound;
