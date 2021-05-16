@@ -15,7 +15,6 @@ import Container from '@material-ui/core/Container';
 import muiTheme from './muiTheme';
 import LoginPage from './components/auth/LoginPage';
 import RegisterPage from './components/auth/RegisterPage';
-import ProfilePage from './components/auth/ProfilePage';
 import ProtectedPath from './helpers/ProtectedPath';
 
 const useStyles = makeStyles((theme) => ({
