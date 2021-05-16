@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -12,7 +13,6 @@ import { toast } from 'react-toastify';
 import { newQuestion, getQuestionId, getAvatarURL } from '../../helpers/utils';
 import { saveQuestion } from '../../store/actions/questionActions';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import Spinner from '../common/Spinner';
 import ThemedContent from './ThemedContent';
 
@@ -80,9 +80,7 @@ const useStyles = makeStyles((theme) => ({
 
 function QuestionNew({ saveQuestion }) {
   const classes = useStyles();
-  const currentUser = {
-    id : 'rashmi'
-  };
+  const { user : currentUser, isloggedin } = useSelector((state) => state.auth);
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
   const [question, setQuestion] = useState(newQuestion);

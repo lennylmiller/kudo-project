@@ -5,6 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
     root : {
@@ -44,9 +45,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ThemedContent = ({ questionId, children, getAvatarURL, imageMaps }) => {
   const classes = useStyles();
-  const currentUser = {
-    id : 'rashmi'
-  };
+  const { user : currentUser, isloggedin } = useSelector((state) => state.auth);
 
   return (<div className={ classes.root }>
       <CardMedia

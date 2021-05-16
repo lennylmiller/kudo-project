@@ -1,7 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
+import { Typography } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -17,6 +19,7 @@ import EqualizerIcon from '@material-ui/icons/Equalizer';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import { NavLink } from 'react-router-dom';
+import { logout } from '../store/actions/authActions';
 
 const drawerWidth = 240;
 
@@ -75,18 +78,36 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft : 0,
   },
+  toolbarRoot : {
+    display : 'flex',
+    justifyContent : 'space-between',
+    alignItems : 'center',
+  }
 }));
 
 const Header = () => {
+  const { user : currentUser, isLoggedIn } = useSelector((state) => state.auth);
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch();
 
   const toggleDrawer = () => {
     open ? setOpen(false) : setOpen(true);
   };
 
+  const handleLogout = () => {
+    dispatch(logout())
+      .then(() => {
+        history.push('/');
+        window.location.reload();
+      })
+      .catch(() => {
+        console.error('Error logging out');
+      });
+  };
+
   return (
-    <div className={ classes.root } onClick={toggleDrawer}>
+    <div className={ classes.root } onClick={ toggleDrawer }>
       <CssBaseline/>
       <AppBar
         position="fixed"
@@ -94,7 +115,7 @@ const Header = () => {
           [classes.appBarShift] : open,
         }) }
       >
-        <Toolbar>
+        <Toolbar classes={ { root : classes.toolbarRoot } }>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -104,6 +125,18 @@ const Header = () => {
           >
             <MenuIcon/>
           </IconButton>
+          { isLoggedIn && (
+            <div
+              style={ {
+                display : 'flex',
+                flexDirection : 'column',
+                alignItems : 'center',
+                justifyContent : 'center'
+              } }>
+              <AccountCircleIcon fontSize="small"/>
+              <Typography variant="caption">{ currentUser.name }</Typography>
+            </div>
+          ) }
         </Toolbar>
       </AppBar>
       <Drawer
@@ -137,22 +170,27 @@ const Header = () => {
         </List>
         <Divider/>
         <List>
-          <NavLink to="/login" key="/login">
-            <ListItem button key="Login">
-              <ListItemIcon>
-                <AccountCircleIcon/>
-              </ListItemIcon>
-              <ListItemText primary="Login"/>
-            </ListItem>
-          </NavLink>
-          <NavLink to="/logout" key="/logout">
-            <ListItem button key="Logout">
+          {!isLoggedIn && (
+            <NavLink to="/login" key="/login">
+              <ListItem button key="LoginPage">
+                <ListItemIcon>
+                  <AccountCircleIcon/>
+                </ListItemIcon>
+                <ListItemText primary="LoginPage"/>
+              </ListItem>
+            </NavLink>
+          )}
+          { isLoggedIn && (
+            <ListItem
+              button
+              key="Logout"
+              onClick={ handleLogout }>
               <ListItemIcon>
                 <ExitToAppIcon/>
               </ListItemIcon>
               <ListItemText primary="Logout"/>
             </ListItem>
-          </NavLink>
+          ) }
         </List>
       </Drawer>
     </div>

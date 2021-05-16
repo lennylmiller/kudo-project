@@ -1,8 +1,8 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, BrowserRouter } from 'react-router-dom';
 import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import HomePage from './components/home/HomePage';
-import Header from './components/layout/Header';
+import Header from './components/Header';
 import PageNotFound from './components/PageNotFound';
 import QuestionsPage from './components/questions/QuestionsPage';
 import LeaderboardPage from './components/users/LeaderboardPage';
@@ -13,6 +13,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import muiTheme from './muiTheme';
+import LoginPage from './components/auth/LoginPage';
+import RegisterPage from './components/auth/RegisterPage';
+import ProfilePage from './components/auth/ProfilePage';
+import ProtectedPath from './helpers/ProtectedPath';
 
 const useStyles = makeStyles((theme) => ({
   // TODO: How does Material-UI want me to manage this?
@@ -27,22 +31,27 @@ function App() {
 
   return (
     <div className={ classes.root }>
-      <MuiThemeProvider theme={ muiTheme }>
-        <CssBaseline/>
-        <Container>
-          <Header />
-          <Switch>
-            <Route exact path="/" component={ HomePage }/>
-            <Route exact path="/questions/add" component={ QuestionNew }/>
-            <Route exact path="/questions" component={ QuestionsPage }/>
-            <Route path="/questions/:id" component={ ManageQuestionPage }/>
-            <Route exact path="/leaderboard" component={ LeaderboardPage }/>
-            <Route exact path="/404" component={ PageNotFound }/>
-            <Redirect to="/404" />
-          </Switch>
-          <ToastContainer autoClose={ 3000 } hideProgressBar/>
-        </Container>
-      </MuiThemeProvider>
+      <BrowserRouter history={ history }>
+        <MuiThemeProvider theme={ muiTheme }>
+          <CssBaseline/>
+          <Container>
+            <Header/>
+            <Switch>
+              <ProtectedPath exact path={['/', '/home']} component={ HomePage }/>
+              <Route exact path="/login" component={ LoginPage }/>
+              <Route path="/register" component={ RegisterPage }/>
+              <ProtectedPath path="/profile" component={ ProfilePage }/>
+              <ProtectedPath path="/questions" component={ QuestionsPage }/>
+              <ProtectedPath path="/questions/:id" component={ ManageQuestionPage }/>
+              <ProtectedPath path="/questions/add" component={ QuestionNew }/>
+              <ProtectedPath path="/leaderboard" component={ LeaderboardPage }/>
+              <Route path="/404" component={ PageNotFound }/>
+              <Redirect to="/404"/>
+            </Switch>
+            <ToastContainer autoClose={ 3000 } hideProgressBar/>
+          </Container>
+        </MuiThemeProvider>
+      </BrowserRouter>
     </div>
   );
 }

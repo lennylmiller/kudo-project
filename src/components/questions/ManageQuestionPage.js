@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { loadQuestions, saveQuestion } from '../../store/actions/questionActions';
 import PropTypes from 'prop-types';
 import Spinner from '../common/Spinner';
@@ -21,15 +21,14 @@ const ManageQuestionPage = ({
   const [question, setQuestion] = useState({ ...props.question });
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
+  const { user : currentUser, isloggedin } = useSelector((state) => state.auth);
 
   if (props.question === null) {
     history.push('/questions');
     window.location.reload();
   }
 
-  const currentUser = {
-    id : 'rashmi'
-  };
+
 
   let mode = '';
 

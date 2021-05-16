@@ -12,6 +12,7 @@ import { history } from '../../helpers';
 import { imageMaps } from '../../helpers/utils';
 import ThemedContent from './ThemedContent';
 import CheckIcon from '@material-ui/icons/Check';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root : {
@@ -57,9 +58,8 @@ const QuestionStatistics = ({
                             }) => {
   const classes = useStyles();
   const statistics = getStatistics();
-  const currentUser = {
-    id : 'rashmi'
-  };
+  const { user : currentUser, isloggedin } = useSelector((state) => state.auth);
+
   console.log(getAvatarURL(currentUser.id));
   const whichOption = (userId) => {
     if (question.optionOne.votes.includes(userId)) {
