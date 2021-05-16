@@ -1,7 +1,14 @@
 import {Request, Response} from 'express';
-import {COURSES} from './db-data';
+import {COURSES, QUESTIONS, AUTHORS, USERS, TUTORIALS} from './db-data';
 
 export let coursesKeyCounter = 100;
+
+export function getAllCourses(req: Request, res: Response) {
+  console.log('Retrieving courses data ...');
+  setTimeout(() => {
+    res.status(200).json(Object.values(COURSES));
+  }, 1000);
+}
 
 export function createCourse(req: Request, res: Response) {
   console.log('Creating new course ...');
@@ -11,7 +18,7 @@ export function createCourse(req: Request, res: Response) {
   const error = validateCourse(req.body);
 
   if (error) {
-    req.status(400).send(error);
+    res.status(400).send(error);
   } else {
     const newCourse = {
       id: coursesKeyCounter,
@@ -47,19 +54,45 @@ export function saveCourse(req: Request, res: Response) {
   }, 2000);
 }
 
-// Centralized logic
+export function getAuthors(req: Request, res: Response) {
+  console.log('Retrieving authors data ...');
 
-// Returns a URL friendly slug
+  setTimeout(() => {
+    res.status(200).json(AUTHORS);
+  }, 1000);
+}
+
+export function deleteCourse(req: Request, res: Response) {
+  console.log('Deleting course ...');
+
+  const id = req.params['id'];
+
+  const tutorial = COURSES[id];
+
+  delete COURSES[id];
+
+  setTimeout(() => {
+    res.status(200).json({id});
+  }, 2000);
+}
+
 function createSlug(value) {
   return value
-    .replace(/[^a-z0-9_]+/gi, "-")
-    .replace(/^-|-$/g, "")
+    .replace(/[^a-z0-9_]+/gi, '-')
+    .replace(/^-|-$/g, '')
     .toLowerCase();
 }
 
 function validateCourse(course) {
-  if (!course.title) return "Title is required.";
-  if (!course.authorId) return "Author is required.";
-  if (!course.category) return "Category is required.";
-  return "";
+  if (!course.title) {
+    return 'Title is required.';
+  }
+  if (!course.authorId) {
+    return 'Author is required.';
+  }
+  if (!course.category) {
+    return 'Category is required.';
+  }
+
+  return '';
 }

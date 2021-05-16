@@ -9,15 +9,6 @@ export function getAllQuestions(req: Request, res: Response) {
   }, 1000);
 }
 
-export function getAuthors(req: Request, res: Response) {
-  console.log('Retrieving authors data ...');
-  const authors = new Set(QUESTIONS.map(question => question.author));
-
-  setTimeout(() => {
-    res.status(200).json({ payload: Array.from(authors) });
-  }, 1000);
-}
-
 export function getQuestion(req: Request, res: Response) {
   const id = req.params['id'];
 
