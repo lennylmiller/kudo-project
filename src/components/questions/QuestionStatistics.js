@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Card } from '@material-ui/core';
@@ -10,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import { history } from '../../helpers';
 import { imageMaps } from '../../helpers/utils';
 import ThemedContent from './ThemedContent';
+import CheckIcon from '@material-ui/icons/Check';
 
 const useStyles = makeStyles((theme) => ({
   root : {
@@ -22,9 +24,30 @@ const useStyles = makeStyles((theme) => ({
   },
   cardActions : {},
   orText : {
-    // position: 'relative',
-    // left: -20
+    marginRight : theme.spacing(3)
+  },
+  optionSelected : {
+    position : 'relative',
+    height : 35,
+    width : 35,
+    top : 15,
+  },
+  whichOnePicked : {
+    display : 'flex',
+    justifyContent : 'space-between'
+  },
+  invisible : {
+    visibility : 'hidden'
+  },
+  isLeft : {
+    right : 0,
+    left : -25
+  },
+  isRight : {
+    right : -25,
+    left : 0
   }
+
 }));
 
 const QuestionStatistics = ({
@@ -34,10 +57,35 @@ const QuestionStatistics = ({
                             }) => {
   const classes = useStyles();
   const statistics = getStatistics();
+  const currentUser = {
+    id : 'rashmi'
+  };
+  console.log(getAvatarURL(currentUser.id));
+  const whichOption = (userId) => {
+    if (question.optionOne.votes.includes(userId)) {
+      return 'optionOne';
+    }
 
+    return 'optionTwo';
+    // const second = question.optionTwo.votes.includes(userId)
+
+  };
+  const ifOption = (option) => {
+    return !question[`option${ option }`].votes.includes(currentUser.id);
+  };
   return (
     <Card className={ classes.root }>
       <ThemedContent imageMaps={ imageMaps } questionId={ question.id } getAvatarURL={ getAvatarURL }>
+        <div className={ classes.whichOnePicked }>
+          <CheckIcon className={ clsx(classes.optionSelected, {
+            [classes.invisible] : ifOption('One'),
+            [classes.isLeft] : true
+          }) }/>
+          <CheckIcon className={ clsx(classes.optionSelected, {
+            [classes.invisible] : ifOption('Two'),
+            [classes.isRight] : true
+          }) }/>
+        </div>
         <div className={ classes.options }>
           <Typography variant="h5" color="textSecondary" component="p">
             { question?.optionOne?.text }
