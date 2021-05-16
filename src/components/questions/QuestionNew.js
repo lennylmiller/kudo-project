@@ -3,10 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Card } from '@material-ui/core';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { imageMaps } from '../../helpers/utils';
@@ -17,6 +14,7 @@ import { saveQuestion } from '../../store/actions/questionActions';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../common/Spinner';
+import ThemedContent from './ThemedContent';
 
 const useStyles = makeStyles((theme) => ({
   root : {
@@ -27,20 +25,10 @@ const useStyles = makeStyles((theme) => ({
     height : 0,
     paddingTop : '56.25%', // 16:9
   },
-  avatar : {
-    height : theme.spacing(20),
-    width : theme.spacing(20)
-  },
-  avatarRoot : {
-    position : 'relative',
-    top : -37,
-    left : 15,
-    border : `3px solid ${ theme.palette.info.light } `
-  },
   options : {
     display : 'flex',
     justifyContent : 'space-between',
-    paddingBottom : theme.spacing(2)
+    // paddingBottom : theme.spacing(2)
   },
   formControl : {},
   radioGroup : {
@@ -52,16 +40,10 @@ const useStyles = makeStyles((theme) => ({
     fontSize : 20
   },
   cardContent : {
-    // position : 'relative',
-    // maxWidth : 542,
-    // left : 250,
-    // top : -60,
-  },
-  title : {
-    // position: 'relative',
-    // left: -15,
-    // paddingBottom: theme.spacing(3)
-
+    position : 'relative',
+    top : -25,
+    marginLeft : theme.spacing(7),
+    marginRight : theme.spacing(7)
   },
   cardActions : {
     display : 'flex',
@@ -74,6 +56,26 @@ const useStyles = makeStyles((theme) => ({
     top : 18,
     fontWeight : 500
   },
+  avatarTitle : {
+    display : 'flex',
+    justifyContent : 'space-between',
+    alignItems : 'center'
+
+
+  },
+  title : {
+    paddingRight : theme.spacing(11)
+  },
+  avatar : {
+    height : theme.spacing(20),
+    width : theme.spacing(20)
+  },
+  avatarRoot : {
+    position : 'relative',
+    top : -37,
+    left : 15,
+    border : `3px solid ${ theme.palette.info.light } `
+  },
 }));
 
 function QuestionNew({ saveQuestion }) {
@@ -84,7 +86,7 @@ function QuestionNew({ saveQuestion }) {
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
   const [question, setQuestion] = useState(newQuestion);
-  const [questionId, setQuestionId] = useState(getQuestionId())
+  const [questionId, setQuestionId] = useState(getQuestionId());
 
   const formIsValid = () => {
     // for a new question, text is required for each
@@ -132,7 +134,7 @@ function QuestionNew({ saveQuestion }) {
       .then(() => {
         toast.success('Question saved.');
         history.push('/questions');
-        window.location.reload()
+        window.location.reload();
       })
       .catch(error => {
         setSaving(false);
@@ -145,45 +147,34 @@ function QuestionNew({ saveQuestion }) {
   return saving
     ? (<Spinner/>)
     : (<Card className={ classes.root }>
-        <CardMedia
-          className={ classes.media }
-          image={ imageMaps[questionId] }
-        />
-        <Avatar
-          className={ classes.avatar }
-          classes={ { root : classes.avatarRoot } }
-          src={ getAvatarURL(currentUser.id) }
-        />
-        <CardContent className={ classes.cardContent }>
-          <Typography className={ classes.title } variant="h4" component="h2">
-            Would you rather?
-          </Typography>
+        <ThemedContent
+          imageMaps={ imageMaps }
+          questionId={ questionId }
+          getAvatarURL={ getAvatarURL }>
           <div className={ classes.options }>
             <TextField
-              // error
               id="optionOne"
               label="Option One"
               fullWidth
               onBlur={ handleChange }
               name="optionOne"
-              // defaultValue="Hello World"
-              // helperText="Incorrect entry."
             />
-            <Typography className={ classes.orText } variant="h5" color="textSecondary" component="p">
+            <Typography
+              className={ classes.orText }
+              variant="h5"
+              color="textSecondary"
+              component="p">
               OR
             </Typography>
             <TextField
-              // error
               id="optionTwo"
               label="Option Two"
               fullWidth
               onBlur={ handleChange }
               name="optionTwo"
-              // defaultValue="Hello World"
-              // helperText="Incorrect entry."
             />
           </div>
-        </CardContent>
+        </ThemedContent>
         <CardActions className={ classes.cardActions }>
           <Button
             size="small"
