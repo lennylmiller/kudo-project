@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => {
   return {
     root : {},
     tableRow : {
-      cursor : 'pointer'
+      // cursor : 'pointer'
     },
     avatar : {
       height : theme.spacing(9),
@@ -44,7 +44,7 @@ const LeaderboardList = ({ users }) => {
           </TableHead>
           <TableBody>
             { users.map((user) => (
-              <TableRow key={ user.id } hover={ true } classes={ { root : classes.tableRow } }>
+              <TableRow key={ user.id } classes={ { root : classes.tableRow } }>
                 <TableCell component="th" scope="user">
                   <Avatar alt={ user.id } className={ classes.avatar } src={ user.avatarURL }/>
                 </TableCell>

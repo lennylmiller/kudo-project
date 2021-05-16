@@ -40,11 +40,11 @@ class QuestionsPage extends React.Component {
             redirectToAddQuestionPage : false,
             tabIndex : 0,
             isLoading : false
-          })
+          });
         })
         .catch(error => {
-        alert('Loading questions failed' + error);
-      });
+          alert('Loading questions failed' + error);
+        });
     }
   }
 
@@ -52,7 +52,7 @@ class QuestionsPage extends React.Component {
     this.setState({
       redirectToAddQuestionPage : false,
       tabIndex : newTabIndex,
-      isLoading: this.state.isLoading
+      isLoading : this.state.isLoading
     });
   };
 
@@ -75,28 +75,28 @@ class QuestionsPage extends React.Component {
     // }
     console.log('ASDFASDFASDFASDFASDF', this.props.questions);
 
-    return this.state.isLoading
-      ? (<Spinner/>)
-      : (<div className={ classes.root }>
-          <Typography align="center" variant="h5">Poll Questions</Typography>
-          <Tabs
-            classes={ { root : classes.tabsRoot } }
-            value={ this.state.tabIndex }
-            indicatorColor="primary"
-            textColor="primary"
-            onChange={ this.handleTabChange }
-            aria-label="Answered & unanswered questions">
-            <Tab label="Unanswered"/>
-            <Tab label="Answered"/>
-          </Tabs>
-          <TabPanel index={ 0 } value={ this.state.tabIndex }>
-            <QuestionList questions={ unanswered }/>
-          </TabPanel>
-          <TabPanel index={ 1 } value={ this.state.tabIndex }>
-            <QuestionList questions={ answered }/>
-          </TabPanel>
-        </div>
-      );
+    // return this.state.isLoading
+    //   ? (<Spinner/>)
+    return (<div className={ classes.root }>
+        <Typography align="center" variant="h5">Poll Questions</Typography>
+        <Tabs
+          classes={ { root : classes.tabsRoot } }
+          value={ this.state.tabIndex }
+          indicatorColor="primary"
+          textColor="primary"
+          onChange={ this.handleTabChange }
+          aria-label="Answered & unanswered questions">
+          <Tab label="Unanswered"/>
+          <Tab label="Answered"/>
+        </Tabs>
+        <TabPanel index={ 0 } value={ this.state.tabIndex }>
+          <QuestionList questions={ unanswered }/>
+        </TabPanel>
+        <TabPanel index={ 1 } value={ this.state.tabIndex }>
+          <QuestionList questions={ answered }/>
+        </TabPanel>
+      </div>
+    );
   }
 }
 
