@@ -2,11 +2,8 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import HomePage from './components/home/HomePage';
-import AboutPage from './components/about/AboutPage';
 import Header from './components/layout/Header';
 import PageNotFound from './components/PageNotFound';
-import CoursesPage from './components/courses/CoursesPage';
-import ManageCoursePage from './components/courses/ManageCoursePage';
 import QuestionsPage from './components/questions/QuestionsPage';
 import LeaderboardPage from './components/users/LeaderboardPage';
 import QuestionNew from './components/questions/QuestionNew';
@@ -36,9 +33,6 @@ function App() {
           <Header />
           <Switch>
             <Route exact path="/" component={ HomePage }/>
-            <Route path="/about" component={ AboutPage }/>
-            <Route path="/courses" component={ CoursesPage }/>
-            <Route path="/course/:slug" component={ ManageCoursePage }/>
             <Route exact path="/questions/add" component={ QuestionNew }/>
             <Route exact path="/questions" component={ QuestionsPage }/>
             <Route path="/questions/:id" component={ ManageQuestionPage }/>
