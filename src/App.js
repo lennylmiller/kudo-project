@@ -16,6 +16,7 @@ import muiTheme from './muiTheme';
 import LoginPage from './components/auth/LoginPage';
 import RegisterPage from './components/auth/RegisterPage';
 import ProtectedPath from './helpers/ProtectedPath';
+import RecoverPasswordPage from './components/auth/RecoverPasswordPage';
 
 const useStyles = makeStyles((theme) => ({
   // TODO: How does Material-UI want me to manage this?
@@ -27,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
-
   return (
     <div className={ classes.root }>
       <Router>
@@ -37,14 +37,15 @@ function App() {
             <Header/>
             <Switch>
               <ProtectedPath exact path={['/', '/home']} component={ HomePage }/>
-              <Route exact path="/login" component={ LoginPage }/>
-              <Route path="/register" component={ RegisterPage }/>
+              <ProtectedPath exact path="/questions/:userId" component={ ManageQuestionPage }/>
               <ProtectedPath exact path="/questions/add" component={ QuestionNew }/>
-              <ProtectedPath path="/questions/:id" component={ ManageQuestionPage }/>
               <ProtectedPath exact path="/questions" component={ QuestionsPage }/>
               <ProtectedPath path="/leaderboard" component={ LeaderboardPage }/>
+              <Route exact path="/login" component={ LoginPage }/>
+              <Route path="/register" component={ RegisterPage }/>
+              <Route path="/recover-password" component={ RecoverPasswordPage } />
               <Route path="/404" component={ PageNotFound }/>
-              <Redirect to="/404"/>
+              <Redirect to="/404" />
             </Switch>
             <ToastContainer autoClose={ 3000 } hideProgressBar/>
           </Container>

@@ -9,7 +9,7 @@ import { Redirect } from 'react-router-dom';
 import QuestionAnswer from './QuestionAnswer';
 import QuestionStatistics from './QuestionStatistics';
 import { setMode } from '../../store/actions/questionActions';
-import { getVotesWithoutCurrentUser, newQuestion, twoDecimal } from '../../helpers/utils';
+import { forceReload, getVotesWithoutCurrentUser, newQuestion, twoDecimal } from '../../helpers/utils';
 
 const ManageQuestionPage = ({
                               questions,
@@ -25,7 +25,7 @@ const ManageQuestionPage = ({
 
   if (props.question === null) {
     history.push('/login');
-    window.location.reload();
+    forceReload();
   }
 
 
@@ -90,7 +90,7 @@ const ManageQuestionPage = ({
       .then(() => {
         toast.success('Question saved.');
         history.push('/questions');
-        window.location.reload()
+        forceReload();
       })
       .catch(error => {
         setSaving(false);
@@ -106,7 +106,7 @@ const ManageQuestionPage = ({
       .then(() => {
         toast.success('Question saved.');
         history.push('/questions');
-        window.location.reload()
+        forceReload();
       })
       .catch(error => {
         setSaving(false);
@@ -191,8 +191,9 @@ export function getQuestionById(questions, id) {
   return questions.find(question => question.id === id) || null;
 }
 
+
 function mapStateToProps(state, ownProps) {
-  const id = ownProps.match.params.id;
+  const id = ownProps.match.params.userId;
   const question =
     id && state.questions.length > 0
       ? getQuestionById(state.questions, id)

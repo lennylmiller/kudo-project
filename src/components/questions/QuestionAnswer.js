@@ -11,7 +11,7 @@ import FormControl from '@material-ui/core/FormControl';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
-import { getAvatarURL, imageMaps } from '../../helpers/utils';
+import { forceReload, getAvatarURL, imageMaps } from '../../helpers/utils';
 import Spinner from '../common/Spinner';
 import ThemedContent from './ThemedContent';
 import Container from '@material-ui/core/Container';
@@ -89,7 +89,7 @@ const QuestionAnswer = ({
             color="primary"
             onClick={ () => {
               history.push('/questions');
-              window.location.reload();
+              forceReload();
             } }
           >
             <ArrowBackIcon/>

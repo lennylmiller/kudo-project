@@ -7,7 +7,7 @@ import { Card } from '@material-ui/core';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { imageMaps } from '../../helpers/utils';
+import { forceReload, imageMaps } from '../../helpers/utils';
 import { history } from '../../helpers/';
 import { toast } from 'react-toastify';
 import { newQuestion, getQuestionId, getAvatarURL } from '../../helpers/utils';
@@ -86,7 +86,7 @@ function QuestionNew({ saveQuestion }) {
   const [saving, setSaving] = useState(false);
   const [question, setQuestion] = useState(newQuestion);
   const [questionId, setQuestionId] = useState(getQuestionId());
-debugger
+
   const formIsValid = () => {
     // for a new question, text is required for each
     const { optionOne, optionTwo } = question;
@@ -133,7 +133,7 @@ debugger
       .then(() => {
         toast.success('Question saved.');
         history.push('/questions');
-        window.location.reload();
+        forceReload();
       })
       .catch(error => {
         setSaving(false);
@@ -179,7 +179,7 @@ debugger
               color="primary"
               onClick={ () => {
                 history.push('/questions');
-                window.location.reload();
+                forceReload();
               } }
             >
               <ArrowBackIcon/>

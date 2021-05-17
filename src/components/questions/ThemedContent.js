@@ -6,6 +6,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { getQuestionImageUrl } from '../../helpers/utils';
 
 const useStyles = makeStyles((theme) => ({
     root : {
@@ -47,10 +48,14 @@ const ThemedContent = ({ questionId, children, getAvatarURL, imageMaps }) => {
   const classes = useStyles();
   const { user : currentUser, isloggedin } = useSelector((state) => state.auth);
 
+  const resolvedImage = imageMaps[questionId]
+    ? imageMaps[questionId]
+    : getQuestionImageUrl();
+
   return (<div className={ classes.root }>
       <CardMedia
         className={ classes.media }
-        image={ imageMaps[questionId] }
+        image={resolvedImage}
       />
       <div className={ classes.avatarTitle }>
         <Avatar

@@ -80,7 +80,7 @@ const LoginPage = (props) => {
     dispatch(login(username, password))
       .then(() => {
         props.history.push('/questions');
-        window.location.reload();
+        // window.location.reload();
       })
       .catch(() => {
         setLoading(false);

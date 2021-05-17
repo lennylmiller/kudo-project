@@ -8,6 +8,6 @@ const store = configureStore();
 
 render(
   <ReduxProvider store={ store }>
-    <App/>
+    <App history={history}/>
   </ReduxProvider>,
   document.getElementById('app'));

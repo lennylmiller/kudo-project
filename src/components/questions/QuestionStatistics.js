@@ -6,7 +6,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Card } from '@material-ui/core';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
-import { getAvatarURL } from '../../helpers/utils';
+import { forceReload, getAvatarURL } from '../../helpers/utils';
 import Button from '@material-ui/core/Button';
 import { history } from '../../helpers';
 import { imageMaps } from '../../helpers/utils';
@@ -107,7 +107,7 @@ const QuestionStatistics = ({
             color="primary"
             onClick={ () => {
               history.push('/questions');
-              window.location.reload();
+              forceReload();
             } }
           >
             <ArrowBackIcon/>

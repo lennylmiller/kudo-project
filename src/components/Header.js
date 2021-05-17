@@ -99,10 +99,7 @@ const Header = () => {
     dispatch(logout())
       .then(() => {
         history.push('/');
-        window.location.reload();
-        setTimeout(() => {
-          window.location.reload();
-        },200)
+        // window.location.reload();
       })
       .catch(() => {
         console.error('Error logging out');

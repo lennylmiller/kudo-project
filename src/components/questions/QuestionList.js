@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { history } from '../../helpers';
-import { getAvatarURL } from '../../helpers/utils';
+import { forceReload, getAvatarURL } from '../../helpers/utils';
 import Avatar from '@material-ui/core/Avatar';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -59,7 +59,7 @@ const QuestionList = ({ questions }) => {
                 hover={ true }
                 onClick={ () => {
                   history.push(`/questions/${ question.id }`);
-                  window.location.reload();
+                  forceReload();
                 } }
                 classes={ { root : classes.tableRow } }>
                 <TableCell component="th" scope="question">
@@ -79,7 +79,7 @@ const QuestionList = ({ questions }) => {
         color="primary"
         onClick={ () => {
           history.push('/questions/add');
-          window.location.reload();
+          forceReload();
         }}>
         <AddIcon/>
       </Fab>
