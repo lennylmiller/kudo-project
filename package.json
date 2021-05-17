@@ -1,9 +1,9 @@
 {
   "name": "kudo-project",
-  "version": "0.0.1'",
+  "version": "1.0.0'",
   "description": "Challenge application",
   "scripts": {
-    "start": "run-p start:api start:dev",
+    "start": "npm-run-all start:dev start:api ",
     "start:api": "ts-node -P ./server/server.tsconfig.json ./server/server.ts",
     "start:dev": "webpack-dev-server --config webpack.config.dev.js --port 4000",
     "start:foo": "webpack-dev-server --config webpack.config.dev.js --port 4000",
@@ -14,15 +14,6 @@
     "build": "webpack --config webpack.config.prod.js",
     "postbuild": "run-p start:api serve:build",
     "serve:build": "http-server ./build"
-  },
-  "jest": {
-    "setupFiles": [
-      "./tools/testSetup.js"
-    ],
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/tools/fileMock.js",
-      "\\.(css|less)$": "<rootDir>/tools/styleMock.js"
-    }
   },
   "engines": {
     "node": ">=8"

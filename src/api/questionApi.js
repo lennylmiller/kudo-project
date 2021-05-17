@@ -1,3 +1,7 @@
+// [x] regular unit tests
+// [] react component tests
+// [x] e2e tests ( frontend integration tests ) => cypress
+
 import { handleResponse, handleError } from './apiUtils';
 
 const baseUrl = '/api/questions/';

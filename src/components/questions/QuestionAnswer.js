@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Card, makeStyles } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { history } from '../../helpers';
 import FormControl from '@material-ui/core/FormControl';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
-import { forceReload, getAvatarURL, imageMaps } from '../../helpers/utils';
+import { getAvatarURL, imageMaps } from '../../helpers/utils';
 import Spinner from '../common/Spinner';
 import ThemedContent from './ThemedContent';
 import Container from '@material-ui/core/Container';
@@ -44,10 +44,9 @@ const QuestionAnswer = ({
                           onAnswer,
                           saving
                         }) => {
-
-  const [selectedOption, setSelectedOption] = React.useState(null);
-
+  const history = useHistory();
   const classes = useStyles();
+  const [selectedOption, setSelectedOption] = React.useState(null);
 
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
@@ -89,7 +88,7 @@ const QuestionAnswer = ({
             color="primary"
             onClick={ () => {
               history.push('/questions');
-              forceReload();
+
             } }
           >
             <ArrowBackIcon/>

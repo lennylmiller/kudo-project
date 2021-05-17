@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
@@ -53,16 +54,13 @@ const useStyles = makeStyles((theme) => ({
 
 const LoginPage = (props) => {
   const classes = useStyles();
-
+  const history = useHistory();
   const form = useRef();
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-
   const { isLoggedIn } = useSelector(state => state.auth);
   const { message } = useSelector(state => state.message);
-
   const dispatch = useDispatch();
 
   const onChangeUsername = (e) => {
@@ -79,8 +77,7 @@ const LoginPage = (props) => {
     e.preventDefault();
     dispatch(login(username, password))
       .then(() => {
-        props.history.push('/questions');
-        // window.location.reload();
+        history.push('/questions');
       })
       .catch(() => {
         setLoading(false);

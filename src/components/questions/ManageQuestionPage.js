@@ -6,28 +6,27 @@ import Spinner from '../common/Spinner';
 import { toast } from 'react-toastify';
 import QuestionNew from './QuestionNew';
 import { Redirect } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import QuestionAnswer from './QuestionAnswer';
 import QuestionStatistics from './QuestionStatistics';
-import { setMode } from '../../store/actions/questionActions';
-import { forceReload, getVotesWithoutCurrentUser, newQuestion, twoDecimal } from '../../helpers/utils';
+import { setMode } from '../../store/actions/questionActionCreator';
+import { getVotesWithoutCurrentUser, newQuestion, twoDecimal } from '../../helpers/utils';
 
 const ManageQuestionPage = ({
                               questions,
                               loadQuestions,
                               saveQuestion,
-                              history,
                               ...props
                             }) => {
   const [question, setQuestion] = useState({ ...props.question });
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
   const { user : currentUser, isloggedin } = useSelector((state) => state.auth);
+  const history = useHistory();
 
   if (props.question === null) {
     history.push('/login');
-    forceReload();
   }
-
 
 
   let mode = '';
@@ -90,7 +89,6 @@ const ManageQuestionPage = ({
       .then(() => {
         toast.success('Question saved.');
         history.push('/questions');
-        forceReload();
       })
       .catch(error => {
         setSaving(false);
@@ -106,7 +104,6 @@ const ManageQuestionPage = ({
       .then(() => {
         toast.success('Question saved.');
         history.push('/questions');
-        forceReload();
       })
       .catch(error => {
         setSaving(false);
@@ -183,8 +180,7 @@ ManageQuestionPage.propTypes = {
   question : PropTypes.object.isRequired,
   questions : PropTypes.array.isRequired,
   loadQuestions : PropTypes.func.isRequired,
-  saveQuestion : PropTypes.func.isRequired,
-  history : PropTypes.object.isRequired
+  saveQuestion : PropTypes.func.isRequired
 };
 
 export function getQuestionById(questions, id) {
@@ -193,7 +189,7 @@ export function getQuestionById(questions, id) {
 
 
 function mapStateToProps(state, ownProps) {
-  const id = ownProps.match.params.userId;
+  const id = ownProps.match.params.questionId;
   const question =
     id && state.questions.length > 0
       ? getQuestionById(state.questions, id)

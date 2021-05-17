@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -47,6 +47,15 @@ class QuestionsPage extends React.Component {
         });
 
     }
+
+    if (this.props.questions.length > 0) {
+      this.setState({
+        isLoading : false
+      });
+    }
+
+
+
   }
 
   handleTabChange = (event, newTabIndex) => {
@@ -57,46 +66,45 @@ class QuestionsPage extends React.Component {
     });
   };
 
+
+
   render() {
     const { currentUser } = this.props;
     const answered = this.props.questions.filter(question => {
-      const answeredOne = question.optionOne.votes.includes(currentUser.id);
-      const answeredTwo = question.optionTwo.votes.includes(currentUser.id);
+      if( currentUser ) {
+        const answeredOne = question.optionOne.votes.includes(currentUser.id);
+        const answeredTwo = question.optionTwo.votes.includes(currentUser.id);
 
-      return answeredOne || answeredTwo;
+        return answeredOne || answeredTwo;
+      }
+      return false;
     });
 
     const unanswered = this.props.questions.filter(e => !answered.includes(e));
     const { classes } = this.props;
 
-    // if (this.props.questions.length > 0) {
-    //  this.setState({
-    //    isLoading: false
-    //  })
-    // }
-
-    // return this.state.isLoading
-    //   ? (<Spinner/>)
-    return (<div className={ classes.root }>
-        <Typography align="center" variant="h5">Poll Questions</Typography>
-        <Tabs
-          classes={ { root : classes.tabsRoot } }
-          value={ this.state.tabIndex }
-          indicatorColor="primary"
-          textColor="primary"
-          onChange={ this.handleTabChange }
-          aria-label="Answered & unanswered questions">
-          <Tab label="Unanswered"/>
-          <Tab label="Answered"/>
-        </Tabs>
-        <TabPanel index={ 0 } value={ this.state.tabIndex }>
-          <QuestionList questions={ unanswered }/>
-        </TabPanel>
-        <TabPanel index={ 1 } value={ this.state.tabIndex }>
-          <QuestionList questions={ answered }/>
-        </TabPanel>
-      </div>
-    );
+    return this.state.isLoading
+      ? (<Spinner/>)
+      : (<div className={ classes.root }>
+          <Typography align="center" variant="h5">Poll Questions</Typography>
+          <Tabs
+            classes={ { root : classes.tabsRoot } }
+            value={ this.state.tabIndex }
+            indicatorColor="primary"
+            textColor="primary"
+            onChange={ this.handleTabChange }
+            aria-label="Answered & unanswered questions">
+            <Tab label="Unanswered"/>
+            <Tab label="Answered"/>
+          </Tabs>
+          <TabPanel index={ 0 } value={ this.state.tabIndex }>
+            <QuestionList questions={ unanswered }/>
+          </TabPanel>
+          <TabPanel index={ 1 } value={ this.state.tabIndex }>
+            <QuestionList questions={ answered }/>
+          </TabPanel>
+        </div>
+      );
   }
 }
 

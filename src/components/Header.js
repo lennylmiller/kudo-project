@@ -20,7 +20,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import { NavLink } from 'react-router-dom';
 import { logout } from '../store/actions/authActions';
-
+import {useHistory} from 'react-router-dom';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -90,6 +90,7 @@ const Header = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const toggleDrawer = () => {
     open ? setOpen(false) : setOpen(true);
@@ -98,7 +99,8 @@ const Header = () => {
   const handleLogout = () => {
     dispatch(logout())
       .then(() => {
-        history.push('/');
+        console.log("logout okay");
+        history.push('/login');
         // window.location.reload();
       })
       .catch(() => {

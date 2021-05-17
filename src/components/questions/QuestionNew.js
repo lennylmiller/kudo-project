@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect, useSelector } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -7,14 +7,14 @@ import { Card } from '@material-ui/core';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { forceReload, imageMaps } from '../../helpers/utils';
-import { history } from '../../helpers/';
+import { imageMaps } from '../../helpers/utils';
 import { toast } from 'react-toastify';
 import { newQuestion, getQuestionId, getAvatarURL } from '../../helpers/utils';
-import { saveQuestion } from '../../store/actions/questionActions';
+import { saveQuestion, saveQuestionV2 } from '../../store/actions/questionActions';
 import PropTypes from 'prop-types';
 import Spinner from '../common/Spinner';
 import ThemedContent from './ThemedContent';
+import { useHistory } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles((theme) => ({
@@ -79,13 +79,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function QuestionNew({ saveQuestion }) {
+function QuestionNew() {
   const classes = useStyles();
   const { user : currentUser, isloggedin } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
   const [question, setQuestion] = useState(newQuestion);
   const [questionId, setQuestionId] = useState(getQuestionId());
+
+  const history = useHistory();
+
+  console.log('Question New Loaded');
 
   const formIsValid = () => {
     // for a new question, text is required for each
@@ -129,11 +134,11 @@ function QuestionNew({ saveQuestion }) {
 
     if (!formIsValid()) return;
     setSaving(true);
-    saveQuestion(changes)
+    saveQuestionV2(changes, dispatch)
       .then(() => {
         toast.success('Question saved.');
         history.push('/questions');
-        forceReload();
+        // forceReload();
       })
       .catch(error => {
         setSaving(false);
@@ -143,7 +148,7 @@ function QuestionNew({ saveQuestion }) {
 
   return saving
     ? (<Spinner/>)
-  : (<Container maxWidth="md">
+    : (<Container maxWidth="md">
         <Card className={ classes.root }>
           <ThemedContent
             imageMaps={ imageMaps }
@@ -179,7 +184,7 @@ function QuestionNew({ saveQuestion }) {
               color="primary"
               onClick={ () => {
                 history.push('/questions');
-                forceReload();
+                // forceReload(true);
               } }
             >
               <ArrowBackIcon/>
@@ -199,13 +204,4 @@ function QuestionNew({ saveQuestion }) {
     );
 }
 
-QuestionNew.propTypes = {
-  saveQuestion : PropTypes.func.isRequired
-};
-
-const mapDispatchToProps = {
-  saveQuestion
-};
-
-export default connect(null, mapDispatchToProps)(QuestionNew);
-
+export default QuestionNew

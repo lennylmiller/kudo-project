@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { history } from '../../helpers';
-import { forceReload, getAvatarURL } from '../../helpers/utils';
+import { getAvatarURL } from '../../helpers/utils';
 import Avatar from '@material-ui/core/Avatar';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -13,6 +12,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import {useHistory} from 'react-router-dom';
 import { shortDateTime } from '../../helpers/timeFormats';
 
 const useStyles = makeStyles((theme) => {
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => {
 
 const QuestionList = ({ questions }) => {
   const classes = useStyles();
-
+  const history = useHistory();
 
   return (
     <div className={ classes.root }>
@@ -59,7 +59,6 @@ const QuestionList = ({ questions }) => {
                 hover={ true }
                 onClick={ () => {
                   history.push(`/questions/${ question.id }`);
-                  forceReload();
                 } }
                 classes={ { root : classes.tableRow } }>
                 <TableCell component="th" scope="question">
@@ -79,7 +78,7 @@ const QuestionList = ({ questions }) => {
         color="primary"
         onClick={ () => {
           history.push('/questions/add');
-          forceReload();
+          // forceReload();
         }}>
         <AddIcon/>
       </Fab>

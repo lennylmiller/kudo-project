@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Link from '@material-ui/core/Link';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -11,8 +12,9 @@ const useStyles = makeStyles((theme) => ({
 const PageNotFound = () => {
   const classes = useStyles();
 
-  return (<div className={ classes.root }>
-      <h1>Oops! Page not found.</h1>
+  return (
+    <div className={ classes.root }>
+      <h1>404-Page not found.</h1>
     </div>
   );
 };

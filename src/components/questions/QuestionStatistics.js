@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Card } from '@material-ui/core';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
-import { forceReload, getAvatarURL } from '../../helpers/utils';
+import { getAvatarURL } from '../../helpers/utils';
 import Button from '@material-ui/core/Button';
-import { history } from '../../helpers';
 import { imageMaps } from '../../helpers/utils';
 import ThemedContent from './ThemedContent';
 import CheckIcon from '@material-ui/icons/Check';
@@ -58,6 +58,7 @@ const QuestionStatistics = ({
                               onSave
                             }) => {
   const classes = useStyles();
+  const history = useHistory();
   const statistics = getStatistics();
   const { user : currentUser, isloggedin } = useSelector((state) => state.auth);
   const ifOption = (option) => {
@@ -107,7 +108,6 @@ const QuestionStatistics = ({
             color="primary"
             onClick={ () => {
               history.push('/questions');
-              forceReload();
             } }
           >
             <ArrowBackIcon/>
