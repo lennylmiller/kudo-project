@@ -78,7 +78,6 @@ const QuestionList = ({ questions }) => {
         color="primary"
         onClick={ () => {
           history.push('/questions/add');
-          // forceReload();
         }}>
         <AddIcon/>
       </Fab>

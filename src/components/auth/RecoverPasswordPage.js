@@ -7,12 +7,11 @@ const useStyles = makeStyles((theme) => ({
   root : {
     marginTop : theme.spacing(15)
   },
-  recoverText: {
-    display: 'flex',
-    justifyContent: 'center'
+  recoverText : {
+    display : 'flex',
+    justifyContent : 'center'
   }
 }));
-
 
 const RecoverPasswordPage = () => {
   const classes = useStyles();
@@ -21,17 +20,17 @@ const RecoverPasswordPage = () => {
     <div className={ classes.root }>
       <Container maxWidth="xs">
         <Card>
-          <div className={classes.recoverText}>
+          <div className={ classes.recoverText }>
             <Typography variant="h3">ramish</Typography>
             <Typography variant="h3">/</Typography>
             <Typography variant="h3">admin</Typography>
           </div>
-          <div className={classes.recoverText}>
+          <div className={ classes.recoverText }>
             <Typography variant="h3">julian</Typography>
             <Typography variant="h3">/</Typography>
             <Typography variant="h3">admin</Typography>
           </div>
-          <div className={classes.recoverText}>
+          <div className={ classes.recoverText }>
             <Typography variant="h3">johndoe</Typography>
             <Typography variant="h3">/</Typography>
             <Typography variant="h3">admin</Typography>

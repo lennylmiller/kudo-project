@@ -101,7 +101,6 @@ const Header = () => {
       .then(() => {
         console.log("logout okay");
         history.push('/login');
-        // window.location.reload();
       })
       .catch(() => {
         console.error('Error logging out');

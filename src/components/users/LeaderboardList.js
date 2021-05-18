@@ -14,9 +14,7 @@ import { getAnswerCount } from '../../helpers/utils';
 const useStyles = makeStyles((theme) => {
   return {
     root : {},
-    tableRow : {
-      // cursor : 'pointer'
-    },
+    tableRow : {},
     avatar : {
       height : theme.spacing(9),
       width : theme.spacing(9)

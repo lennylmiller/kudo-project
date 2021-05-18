@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -12,9 +11,7 @@ import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
-
 import Form from 'react-validation/build/form';
-
 import { login } from '../../store/actions/authActions';
 
 const useStyles = makeStyles((theme) => ({
@@ -52,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const LoginPage = (props) => {
+const LoginPage = () => {
   const classes = useStyles();
   const history = useHistory();
   const form = useRef();
@@ -149,4 +146,4 @@ const LoginPage = (props) => {
   );
 };
 
-export default withRouter(LoginPage);
+export default LoginPage;

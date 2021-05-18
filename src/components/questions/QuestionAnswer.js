@@ -88,7 +88,6 @@ const QuestionAnswer = ({
             color="primary"
             onClick={ () => {
               history.push('/questions');
-
             } }
           >
             <ArrowBackIcon/>

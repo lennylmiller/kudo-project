@@ -138,7 +138,6 @@ function QuestionNew() {
       .then(() => {
         toast.success('Question saved.');
         history.push('/questions');
-        // forceReload();
       })
       .catch(error => {
         setSaving(false);
@@ -184,7 +183,6 @@ function QuestionNew() {
               color="primary"
               onClick={ () => {
                 history.push('/questions');
-                // forceReload(true);
               } }
             >
               <ArrowBackIcon/>
