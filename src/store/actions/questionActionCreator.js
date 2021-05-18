@@ -1,6 +1,4 @@
 import * as types from "./actionTypes";
-import * as questionApi from "../../api/questionApi";
-import { beginApiCall, apiCallError } from "./apiStatusActions";
 
 export function loadQuestionSuccess(questions) {
   return { type: types.LOAD_QUESTIONS_SUCCESS, questions };

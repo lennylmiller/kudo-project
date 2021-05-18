@@ -1,7 +1,7 @@
 export default {
-  courses: [],
-  authors: [],
-  questions: [],
-  users: [],
-  apiCallsInProgress: 0
+  courses : [],
+  authors : [],
+  questions : [],
+  users : [],
+  apiCallsInProgress : 0
 };

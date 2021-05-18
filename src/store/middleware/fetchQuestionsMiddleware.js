@@ -1,4 +1,3 @@
-import { loadUserSuccess } from '../actions/userActions';
 import { loadQuestionsV2 } from '../actions/questionActions';
 
 export const fetchQuestionsMiddleware = storeAPI => next => async action => {

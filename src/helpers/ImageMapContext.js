@@ -49,7 +49,7 @@ export const ImageMapProvider = ({ children }) => {
       image = randomImage();
     }
 
-    const changes = {...imageMaps}
+    const changes = { ...imageMaps };
 
     changes[questionId] = `https://kudo-assignment.s3-us-west-2.amazonaws.com/${ image }.jpeg`;
     setImageMaps(changes);

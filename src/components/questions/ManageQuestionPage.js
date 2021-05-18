@@ -5,8 +5,7 @@ import PropTypes from 'prop-types';
 import Spinner from '../common/Spinner';
 import { toast } from 'react-toastify';
 import QuestionNew from './QuestionNew';
-import { Redirect } from 'react-router-dom';
-import {useHistory} from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import QuestionAnswer from './QuestionAnswer';
 import QuestionStatistics from './QuestionStatistics';
 import { setMode } from '../../store/actions/questionActionCreator';
@@ -21,7 +20,7 @@ const ManageQuestionPage = ({
   const [question, setQuestion] = useState({ ...props.question });
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
-  const { user : currentUser, isloggedin } = useSelector((state) => state.auth);
+  const { user : currentUser } = useSelector((state) => state.auth);
   const history = useHistory();
 
   if (props.question === null) {
@@ -74,7 +73,7 @@ const ManageQuestionPage = ({
   };
 
   const handleAnswer = (event) => {
-    const { name, value } = event.target;
+    const { value } = event.target;
     event.preventDefault();
     let options = getVotesWithoutCurrentUser(question, currentUser);
     options[value].votes.push(currentUser.id);

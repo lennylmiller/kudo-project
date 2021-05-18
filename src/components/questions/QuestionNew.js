@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -7,11 +7,9 @@ import { Card } from '@material-ui/core';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { imageMaps } from '../../helpers/utils';
 import { toast } from 'react-toastify';
-import { newQuestion, getQuestionId, getAvatarURL } from '../../helpers/utils';
-import { saveQuestion, saveQuestionV2 } from '../../store/actions/questionActions';
-import PropTypes from 'prop-types';
+import { newQuestion, getQuestionId, getAvatarURL, imageMaps } from '../../helpers/utils';
+import { saveQuestionV2 } from '../../store/actions/questionActions';
 import Spinner from '../common/Spinner';
 import ThemedContent from './ThemedContent';
 import { useHistory } from 'react-router-dom';
@@ -81,12 +79,12 @@ const useStyles = makeStyles((theme) => ({
 
 function QuestionNew() {
   const classes = useStyles();
-  const { user : currentUser, isloggedin } = useSelector((state) => state.auth);
+  const { user : currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
   const [question, setQuestion] = useState(newQuestion);
-  const [questionId, setQuestionId] = useState(getQuestionId());
+  const [questionId] = useState(getQuestionId());
 
   const history = useHistory();
 
@@ -123,7 +121,6 @@ function QuestionNew() {
   };
 
   const handleSave = (event) => {
-    const { name, value } = event.target;
     event.preventDefault();
     const changes = {
       ...question,
@@ -202,4 +199,4 @@ function QuestionNew() {
     );
 }
 
-export default QuestionNew
+export default QuestionNew;

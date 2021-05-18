@@ -1,5 +1,4 @@
 import { combineReducers } from "redux";
-import { alert } from './alert.reducer';
 import questions from './questionReducer';
 import users from './userReducer';
 import apiCallsInProgress from "./apiStatusReducer";
@@ -10,7 +9,6 @@ const rootReducer = combineReducers({
   auth,
   message,
   users,
-  alert,
   questions,
   apiCallsInProgress
 });

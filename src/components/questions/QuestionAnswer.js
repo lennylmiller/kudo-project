@@ -117,7 +117,8 @@ QuestionAnswer.propTypes = {
   getStatistics : PropTypes.func.isRequired,
   onChange : PropTypes.func.isRequired,
   onSave : PropTypes.func.isRequired,
-  onAnswer : PropTypes.func.isRequired
+  onAnswer : PropTypes.func.isRequired,
+  saving : PropTypes.bool
 };
 
 

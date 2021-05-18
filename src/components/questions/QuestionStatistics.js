@@ -2,14 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core';
+import { Card, makeStyles } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { Card } from '@material-ui/core';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
-import { getAvatarURL } from '../../helpers/utils';
 import Button from '@material-ui/core/Button';
-import { imageMaps } from '../../helpers/utils';
+import { getAvatarURL, imageMaps } from '../../helpers/utils';
 import ThemedContent from './ThemedContent';
 import CheckIcon from '@material-ui/icons/Check';
 import { useSelector } from 'react-redux';
@@ -55,12 +53,11 @@ const useStyles = makeStyles((theme) => ({
 const QuestionStatistics = ({
                               question,
                               getStatistics,
-                              onSave
                             }) => {
   const classes = useStyles();
   const history = useHistory();
   const statistics = getStatistics();
-  const { user : currentUser, isloggedin } = useSelector((state) => state.auth);
+  const { user : currentUser } = useSelector((state) => state.auth);
   const ifOption = (option) => {
     return !question[`option${ option }`].votes.includes(currentUser.id);
   };
@@ -120,8 +117,7 @@ const QuestionStatistics = ({
 
 QuestionStatistics.propTypes = {
   question : PropTypes.object.isRequired,
-  getStatistics : PropTypes.func.isRequired,
-  onSave : PropTypes.func
+  getStatistics : PropTypes.func.isRequired
 };
 
 export default QuestionStatistics;

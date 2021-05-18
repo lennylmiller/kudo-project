@@ -1,13 +1,12 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
@@ -55,9 +54,7 @@ const LoginPage = () => {
   const form = useRef();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
   const { isLoggedIn } = useSelector(state => state.auth);
-  const { message } = useSelector(state => state.message);
   const dispatch = useDispatch();
 
   const onChangeUsername = (e) => {
@@ -77,7 +74,7 @@ const LoginPage = () => {
         history.push('/questions');
       })
       .catch(() => {
-        setLoading(false);
+        alert('Error while logging in')
       });
   };
 

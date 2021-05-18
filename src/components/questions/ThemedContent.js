@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ThemedContent = ({ questionId, children, getAvatarURL, imageMaps }) => {
   const classes = useStyles();
-  const { user : currentUser, isloggedin } = useSelector((state) => state.auth);
+  const { user : currentUser } = useSelector((state) => state.auth);
 
   const resolvedImage = imageMaps[questionId]
     ? imageMaps[questionId]
@@ -55,7 +55,7 @@ const ThemedContent = ({ questionId, children, getAvatarURL, imageMaps }) => {
   return (<div className={ classes.root }>
       <CardMedia
         className={ classes.media }
-        image={resolvedImage}
+        image={ resolvedImage }
       />
       <div className={ classes.avatarTitle }>
         <Avatar

@@ -7,7 +7,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import muiTheme from './muiTheme';
 import { Routes } from './Routes';
-import configureStore from './store/configureStore.prod';
 
 const useStyles = makeStyles((theme) => ({
   root : {
@@ -15,8 +14,6 @@ const useStyles = makeStyles((theme) => ({
     flex : 1
   }
 }));
-
-const store = configureStore();
 
 function App() {
   const classes = useStyles();

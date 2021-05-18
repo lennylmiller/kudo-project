@@ -5,7 +5,7 @@ import QuestionNew from './components/questions/QuestionNew';
 import ProtectedPath from './helpers/ProtectedPath';
 import RecoverPasswordPage from './components/auth/RecoverPasswordPage';
 import QuestionsPage from './components/questions/QuestionsPage';
-import LeaderboardPage from './components/users/LeaderboardPageV1';
+import LeaderboardPage from './components/users/LeaderboardPage';
 import ManageQuestionPage from './components/questions/ManageQuestionPage';
 import LoginPage from './components/auth/LoginPage';
 

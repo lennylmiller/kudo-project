@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { makeStyles, Typography } from '@material-ui/core';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import QuestionList from './QuestionList';
 import Spinner from '../common/Spinner';
-import { loadQuestions, loadQuestionsV2 } from '../../store/actions/questionActions';
+import { loadQuestionsV2 } from '../../store/actions/questionActions';
 
 const useStyles = makeStyles((theme) => ({
   root : {
@@ -19,37 +19,33 @@ const useStyles = makeStyles((theme) => ({
 
 const QuestionsPage = () => {
   const classes = useStyles();
-  const [redirectToAddQuestionPage, setRedirectToAddQuestionPage] = useState(false);
   const [tabIndex, setTabIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const questions = useSelector((state) => state.questions);
-  const loading = useSelector((state) => state.loading);
   const currentUser = useSelector((state) => state.auth.user);
 
-  useEffect(async() =>  {
-   try {
-     if(questions.length === 0) {
-       await loadQuestionsV2(dispatch)
-       setRedirectToAddQuestionPage(false);
-       setTabIndex(0)
-       setIsLoading(false)
-     }
-   } catch(error) {
-     alert(`Loading questions failed ${error}`);
-   }
+  useEffect(async() => {
+    try {
+      if (questions.length === 0) {
+        await loadQuestionsV2(dispatch);
+        setTabIndex(0);
+        setIsLoading(false);
+      }
+    } catch(error) {
+      alert(`Loading questions failed ${ error }`);
+    }
 
-   questions.length > 0 && setIsLoading(false);
-  }, [])
+    questions.length > 0 && setIsLoading(false);
+  }, []);
 
   const handleTabChange = (event, newTabIndex) => {
-    setRedirectToAddQuestionPage(false);
     setTabIndex(newTabIndex);
     setIsLoading(isLoading);
-  }
+  };
 
   const answered = questions.filter(question => {
-    if( currentUser ) {
+    if (currentUser) {
       const answeredOne = question.optionOne.votes.includes(currentUser.id);
       const answeredTwo = question.optionTwo.votes.includes(currentUser.id);
 
@@ -82,7 +78,7 @@ const QuestionsPage = () => {
         </TabPanel>
       </div>
     );
-}
+};
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -100,4 +96,4 @@ TabPanel.propTypes = {
   index : PropTypes.any.isRequired,
   value : PropTypes.any.isRequired,
 };
-export default QuestionsPage
+export default QuestionsPage;

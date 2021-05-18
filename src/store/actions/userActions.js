@@ -1,22 +1,23 @@
-import * as types from "./actionTypes";
-import * as userApi from "../../api/userApi";
-import { beginApiCall, apiCallError } from "./apiStatusActions";
+import * as userApi from '../../api/userApi';
+import { beginApiCall, apiCallError } from './apiStatusActions';
+import {
+  loadUserSuccess,
+  updateUserSuccess,
+  createUserSuccess,
+  deleteUserOptimistic
+} from './userActionCreator';
 
-export function loadUserSuccess(users) {
-  return { type: types.LOAD_USERS_SUCCESS, users };
-}
+export const loadUsersV2 = async(dispatch) => {
+  try {
+    const users = await userApi.getUsers();
+    const values = JSON.parse(JSON.stringify(users.payload));
+    dispatch(loadUserSuccess(values));
 
-export function createUserSuccess(user) {
-  return { type: types.CREATE_USER_SUCCESS, user };
-}
-
-export function updateUserSuccess(user) {
-  return { type: types.UPDATE_USER_SUCCESS, user };
-}
-
-export function deleteUserOptimistic(user) {
-  return { type: types.DELETE_USER_OPTIMISTIC, user };
-}
+  } catch(error) {
+    dispatch(apiCallError(error));
+    throw error;
+  }
+};
 
 export function loadUsers() {
   return function(dispatch) {

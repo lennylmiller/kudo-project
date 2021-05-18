@@ -24,10 +24,6 @@ can press the *Forget Password* link, here they are for your convenience.
   * julian  = admin 
   * johndoe = admin 
 
-#### Questions
- * I wasn't sure what you are calling home, I believe we want our home to /questions.
- * I focused my test on the questions only
- * Creating new users that create new questions
 
 ### App Functionality
 

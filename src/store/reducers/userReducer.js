@@ -1,5 +1,5 @@
-import * as types from "../actions/actionTypes";
-import initialState from "./initialState";
+import * as types from '../actions/actionTypes';
+import initialState from './initialState';
 
 
 export default function userReducer(state = initialState.users, action) {
@@ -32,5 +32,5 @@ const sortUsers = (a, b) => {
   const aCount = answerCountA + questionCountA;
   const bCount = answerCountB + questionCountB;
 
-  return  bCount - aCount;
+  return bCount - aCount;
 };

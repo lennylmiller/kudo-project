@@ -1,5 +1,5 @@
-import * as types from "../actions/actionTypes";
-import initialState from "./initialState";
+import * as types from '../actions/actionTypes';
+import initialState from './initialState';
 
 export default function questionReducer(state = initialState.questions, action) {
   switch (action.type) {
@@ -14,7 +14,7 @@ export default function questionReducer(state = initialState.questions, action) 
     case types.DELETE_QUESTION_OPTIMISTIC:
       return state.filter(question => question.id !== action.question.id);
     case types.SET_MODE:
-      return action.mode
+      return action.mode;
     case types.REMOVE_MODE:
       return '';
     default:
@@ -22,5 +22,5 @@ export default function questionReducer(state = initialState.questions, action) 
   }
 }
 const sortQuestions = (a, b) => {
- return b.timestamp - a.timestamp
-}
+  return b.timestamp - a.timestamp;
+};

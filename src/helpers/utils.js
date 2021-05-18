@@ -36,19 +36,6 @@ const randomImage = () => {
   ][Math.floor((Math.random() * 7) + 1)];
 };
 
-export const getQuesxtionId = () => {
-  const questionId = uuidv4();
-  let image = randomImage();
-
-  while (image === null || image === undefined) {
-    image = randomImage();
-  }
-  const imageURL = `https://kudo-assignment.s3-us-west-2.amazonaws.com/${ image }.jpeg`;
-  imageMaps[questionId] = `https://kudo-assignment.s3-us-west-2.amazonaws.com/${ image }.jpeg`;
-
-  return questionId;
-};
-
 export const getQuestionImage = () => {
   let image = randomImage();
 
@@ -57,12 +44,12 @@ export const getQuestionImage = () => {
   }
 
   return image;
-}
+};
 
 export const getQuestionImageUrl = () => {
   const image = getQuestionImage();
   return `https://kudo-assignment.s3-us-west-2.amazonaws.com/${ image }.jpeg`;
-}
+};
 
 export const getQuestionId = () => {
   const questionId = uuidv4();
@@ -130,8 +117,8 @@ export const getAnswerCount = (user) => {
   return Object.keys(user.answers).length;
 };
 
-export const forceReload = (flag=false) => {
-  if(flag) {
+export const forceReload = (flag = false) => {
+  if (flag) {
     window.location.reload();
   }
-}
+};
