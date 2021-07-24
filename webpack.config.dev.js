@@ -22,17 +22,17 @@ module.exports = {
     headers: { "Access-Control-Allow-Origin": "*" },
     https: false,
     proxy: {
-      // context: () => true,
-      // changeOrigin: true,
       '/api': {
-        target: 'http://localhost:9000',
+        context: () => true,
+        changeOrigin: true,
+        target: 'http://localhost:3000',
         secure: false
       }
     }
   },
   plugins: [
     // new webpack.DefinePlugin({
-    //   "process.env.API_URL": JSON.stringify("http://localhost:9000")
+    //   "process.env.API_URL": JSON.stringify("http://localhost:3000")
     // }),
     new HtmlWebpackPlugin({
       template: "src/index.html",

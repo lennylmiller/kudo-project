@@ -1,19 +1,19 @@
 import axios from 'axios';
 
-const API_URL = '/api/auth/';
+const API_URL = '/api';
 
-const register = (username, email, password) => {
-  return axios.post(API_URL + 'signup', {
-    username,
+const signup = (name, email, password) => {
+  return axios.post(API_URL + '/signup', {
+    name,
     email,
     password,
   });
 };
 
-const login = (username, password) => {
+const signin = (email, password) => {
   return axios
-    .post(API_URL + 'signin', {
-      username,
+    .post(API_URL + '/signin', {
+      email,
       password,
     })
     .then((response) => {
@@ -25,12 +25,12 @@ const login = (username, password) => {
     });
 };
 
-const logout = () => {
+const signout = () => {
   localStorage.removeItem('user');
 };
 
 export default {
-  register,
-  login,
-  logout,
+  signup : signup,
+  signin : signin,
+  signout : signout,
 };

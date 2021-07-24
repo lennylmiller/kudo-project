@@ -1,47 +1,47 @@
 import {
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGOUT,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAIL,
+  SIGNIN_SUCCESS,
+  SIGNIN_FAIL,
+  SIGNOUT,
 } from '../actions/actionTypes';
 
 const user = JSON.parse(localStorage.getItem("user"));
 
 const initialState = user
-  ? { isLoggedIn: true, user }
-  : { isLoggedIn: false, user: null };
+  ? { isSignedIn: true, user }
+  : { isSignedIn: false, user: null };
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case REGISTER_SUCCESS:
+    case SIGNUP_SUCCESS:
       return {
         ...state,
-        isLoggedIn: false,
+        isSignedIn: false,
       };
-    case REGISTER_FAIL:
+    case SIGNUP_FAIL:
       return {
         ...state,
-        isLoggedIn: false,
+        isSignedIn: false,
       };
-    case LOGIN_SUCCESS:
+    case SIGNIN_SUCCESS:
       return {
         ...state,
-        isLoggedIn: true,
+        isSignedIn: true,
         user: payload.user,
       };
-    case LOGIN_FAIL:
+    case SIGNIN_FAIL:
       return {
         ...state,
-        isLoggedIn: false,
+        isSignedIn: false,
         user: null,
       };
-    case LOGOUT:
+    case SIGNOUT:
       return {
         ...state,
-        isLoggedIn: false,
+        isSignedIn: false,
         user: null,
       };
     default:

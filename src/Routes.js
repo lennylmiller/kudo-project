@@ -7,7 +7,8 @@ import RecoverPasswordPage from './components/auth/RecoverPasswordPage';
 import QuestionsPage from './components/questions/QuestionsPage';
 import LeaderboardPage from './components/users/LeaderboardPage';
 import ManageQuestionPage from './components/questions/ManageQuestionPage';
-import LoginPage from './components/auth/LoginPage';
+import SignupPage from './components/auth/SignupPage';
+import SigninPage from './components/auth/SigninPage';
 
 export const Routes = () => {
   return (
@@ -17,7 +18,8 @@ export const Routes = () => {
       <ProtectedPath exact path="/questions" component={ QuestionsPage }/>
       <ProtectedPath path="/questions/:questionId" component={ ManageQuestionPage }/>
       <ProtectedPath path="/leaderboard" component={ LeaderboardPage }/>
-      <Route exact path="/login" component={ LoginPage }/>
+      <Route exact path="/signup" component={ SignupPage }/>
+      <Route exact path="/signin" component={ SigninPage }/>
       <Route path="/recover-password" component={ RecoverPasswordPage }/>
       <Route path="/404" component={ PageNotFound }/>
       <Redirect to="/404"/>

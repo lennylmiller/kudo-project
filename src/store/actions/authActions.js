@@ -1,19 +1,19 @@
 import {
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGOUT,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAIL,
+  SIGNIN_SUCCESS,
+  SIGNIN_FAIL,
+  SIGNOUT,
   SET_MESSAGE,
 } from './actionTypes';
 
 import authApi from '../../api/authAPI';
 
-export const register = (username, email, password) => (dispatch) => {
-  return authApi.register(username, email, password).then(
+export const signup = (name, email, password) => (dispatch) => {
+  return authApi.signup(name, email, password).then(
     (response) => {
       dispatch({
-        type : REGISTER_SUCCESS,
+        type : SIGNUP_SUCCESS,
       });
 
       dispatch({
@@ -32,7 +32,7 @@ export const register = (username, email, password) => (dispatch) => {
         error.toString();
 
       dispatch({
-        type : REGISTER_FAIL,
+        type : SIGNUP_FAIL,
       });
 
       dispatch({
@@ -45,11 +45,11 @@ export const register = (username, email, password) => (dispatch) => {
   );
 };
 
-export const login = (username, password) => (dispatch) => {
-  return authApi.login(username, password).then(
+export const signin = (email, password) => (dispatch) => {
+  return authApi.signin(email, password).then(
     (data) => {
       dispatch({
-        type : LOGIN_SUCCESS,
+        type : SIGNIN_SUCCESS,
         payload : { user : data },
       });
 
@@ -64,7 +64,7 @@ export const login = (username, password) => (dispatch) => {
         error.toString();
 
       dispatch({
-        type : LOGIN_FAIL,
+        type : SIGNIN_FAIL,
       });
 
       dispatch({
@@ -77,11 +77,11 @@ export const login = (username, password) => (dispatch) => {
   );
 };
 
-export const logout = () => (dispatch) => {
-  authApi.logout();
+export const signout = () => (dispatch) => {
+  authApi.signout();
 
   dispatch({
-    type : LOGOUT,
+    type : SIGNOUT,
   });
 
   return Promise.resolve();
